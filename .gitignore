@@ -1,62 +1,75 @@
-# Build results
-bin/
-obj/
-[Ll]og/
-[Bb]uild/
-[Bb]uild[Ll]og.*
+# Environment Variables
+.env
+.env.local
+.env.*.local
 
-# User-specific files
-*.user
+# IDE files
+.vs/
+.vscode/
 *.suo
+*.user
 *.userosscache
 *.sln.docstates
-*.VC.db
 
-# Rider (JetBrains)
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider
 .idea/
 *.sln.iml
-_ReSharper*/
-*.DotSettings.user
 
-# VS Code
-.vscode/
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-# NuGet
+# NuGet Packages
 *.nupkg
-*.snupkg
-*.nuspec
-*.psmdcp
 packages/
-**/packages/*
+*.nuget.props
+*.nuget.targets
 
-# Paket
-.paket/
-paket-files/
-
-# ASP.NET
-wwwroot/
-project.lock.json
-project.fragment.lock.json
-
-# Entity Framework
-migrations/
-
-# Test results
-TestResults/
-*.trx
-*.coverage
-*.coveragexml
-
-# Publish output
-publish/
-out/
-
-# Temporary files
-*.tmp
-*.bak
-*.old
-*.log
-
-# Others
-*.vs/
-.vs/
+# Build Results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/ 
