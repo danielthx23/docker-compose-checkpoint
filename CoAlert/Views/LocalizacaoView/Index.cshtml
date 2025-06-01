@@ -1,0 +1,59 @@
+@model IEnumerable<CoAlert.Application.Dtos.Localizacao.LocalizacaoResponseDto>
+
+@{
+    ViewData["Title"] = "Localizações";
+}
+
+<div class="container">
+    <h1>Localizações</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Nova Localização
+        </a>
+    </p>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 localizacao-card">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.NmCidade, @item.NmEstado</h5>
+                        <p class="card-text">
+                            <i class="bi bi-geo-alt"></i> @item.NmLogradouro, @item.NrNumero - @item.NmBairro<br />
+                            <small class="text-muted">CEP: @item.NrCep</small>
+                        </p>
+                        @if (!string.IsNullOrEmpty(item.DsComplemento))
+                        {
+                            <p class="card-text">
+                                <small class="text-muted">Complemento: @item.DsComplemento</small>
+                            </p>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group">
+                            <a asp-action="Edit" asp-route-id="@item.IdLocalizacao" class="btn btn-primary">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.IdLocalizacao" class="btn btn-info">
+                                <i class="bi bi-info-circle"></i> Detalhes
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.IdLocalizacao" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Excluir
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+    </script>
+} 

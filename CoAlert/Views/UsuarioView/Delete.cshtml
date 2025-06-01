@@ -1,0 +1,39 @@
+@model CoAlert.Application.Dtos.Usuario.UsuarioResponseDto
+
+@{
+    ViewData["Title"] = "Excluir Usuário";
+}
+
+<div class="container">
+    <h1>Excluir Usuário</h1>
+
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Atenção!</h4>
+        <p>Você tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@Model.NmUsuario</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">Email</dt>
+                        <dd class="col-sm-8">@Model.NmEmail</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="IdUsuario" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Confirmar Exclusão
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Voltar
+                </a>
+            </form>
+        </div>
+    </div>
+</div> 

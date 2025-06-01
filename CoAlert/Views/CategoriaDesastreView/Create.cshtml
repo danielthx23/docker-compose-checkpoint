@@ -1,0 +1,40 @@
+@model CoAlert.Application.Dtos.CategoriaDesastre.CategoriaDesastreRequestDto
+
+@{
+    ViewData["Title"] = "Criar Categoria de Desastre";
+}
+
+<h1>Criar</h1>
+
+<h4>Categoria de Desastre</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="NmTitulo" class="control-label">Título</label>
+                <input asp-for="NmTitulo" class="form-control" />
+                <span asp-validation-for="NmTitulo" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="DsCategoria" class="control-label">Descrição</label>
+                <textarea asp-for="DsCategoria" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="DsCategoria" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="NmTipo" class="control-label">Tipo</label>
+                <input asp-for="NmTipo" class="form-control" />
+                <span asp-validation-for="NmTipo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Criar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

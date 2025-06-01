@@ -1,0 +1,78 @@
+@model CoAlert.Application.Dtos.Localizacao.LocalizacaoRequestDto
+
+@{
+    ViewData["Title"] = "Editar Localização";
+}
+
+<div class="container">
+    <h1>Editar Localização</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NmLogradouro" class="control-label">Logradouro</label>
+                    <input asp-for="NmLogradouro" class="form-control" />
+                    <span asp-validation-for="NmLogradouro" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NrNumero" class="control-label">Número</label>
+                    <input asp-for="NrNumero" class="form-control" type="number" />
+                    <span asp-validation-for="NrNumero" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NmBairro" class="control-label">Bairro</label>
+                    <input asp-for="NmBairro" class="form-control" />
+                    <span asp-validation-for="NmBairro" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DsComplemento" class="control-label">Complemento</label>
+                    <input asp-for="DsComplemento" class="form-control" />
+                    <span asp-validation-for="DsComplemento" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NrCep" class="control-label">CEP</label>
+                    <input asp-for="NrCep" class="form-control" />
+                    <span asp-validation-for="NrCep" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NmCidade" class="control-label">Cidade</label>
+                    <input asp-for="NmCidade" class="form-control" />
+                    <span asp-validation-for="NmCidade" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NmEstado" class="control-label">Estado</label>
+                    <input asp-for="NmEstado" class="form-control" />
+                    <span asp-validation-for="NmEstado" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NmPais" class="control-label">País</label>
+                    <input asp-for="NmPais" class="form-control" />
+                    <span asp-validation-for="NmPais" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Salvar
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Voltar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

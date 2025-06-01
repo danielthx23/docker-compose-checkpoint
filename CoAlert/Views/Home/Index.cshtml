@@ -1,0 +1,90 @@
+@{
+    ViewData["Title"] = "Início";
+}
+
+<div class="container">
+    <div class="text-center mb-5">
+        <h1 class="display-4">Bem-vindo ao CoAlert</h1>
+        <p class="lead">Sistema de Alerta e Monitoramento de Desastres</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-tags display-4 text-primary mb-3"></i>
+                    <h5 class="card-title">Categorias de Desastres</h5>
+                    <p class="card-text">Gerencie as categorias de desastres para melhor organização dos alertas.</p>
+                    <a asp-controller="CategoriaDesastreView" asp-action="Index" class="btn btn-primary">
+                        <i class="bi bi-arrow-right"></i> Acessar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-newspaper display-4 text-success mb-3"></i>
+                    <h5 class="card-title">Postagens</h5>
+                    <p class="card-text">Crie e gerencie postagens sobre ocorrências e alertas de desastres.</p>
+                    <a asp-controller="PostagemView" asp-action="Index" class="btn btn-success">
+                        <i class="bi bi-arrow-right"></i> Acessar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-hand-thumbs-up display-4 text-info mb-3"></i>
+                    <h5 class="card-title">Likes</h5>
+                    <p class="card-text">Gerencie likes de postagens e comentários.</p>
+                    <a asp-controller="LikeView" asp-action="Index" class="btn btn-info">
+                        <i class="bi bi-arrow-right"></i> Acessar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-people display-4 text-info mb-3"></i>
+                    <h5 class="card-title">Usuários</h5>
+                    <p class="card-text">Gerencie os usuários do sistema e suas permissões.</p>
+                    <a asp-controller="UsuarioView" asp-action="Index" class="btn btn-info">
+                        <i class="bi bi-arrow-right"></i> Acessar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-chat display-4 text-warning mb-3"></i>
+                    <h5 class="card-title">Comentários</h5>
+                    <p class="card-text">Acompanhe e modere os comentários nas postagens.</p>
+                    <a asp-controller="ComentarioView" asp-action="Index" class="btn btn-warning">
+                        <i class="bi bi-arrow-right"></i> Acessar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-geo-alt display-4 text-danger mb-3"></i>
+                    <h5 class="card-title">Localizações</h5>
+                    <p class="card-text">Gerencie as localizações onde os desastres foram registrados.</p>
+                    <a asp-controller="LocalizacaoView" asp-action="Index" class="btn btn-danger">
+                        <i class="bi bi-arrow-right"></i> Acessar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

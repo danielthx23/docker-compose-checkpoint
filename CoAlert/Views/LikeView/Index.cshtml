@@ -1,0 +1,79 @@
+@{
+    ViewData["Title"] = "Estatísticas de Curtidas";
+}
+
+<div class="container">
+    <h1>Estatísticas de Curtidas</h1>
+
+    <div class="row">
+        <!-- Top 10 Postagens Mais Curtidas -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Top 10 Postagens Mais Curtidas</h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.TopPostagens != null && ViewBag.TopPostagens.Count > 0)
+                    {
+                        <div class="list-group">
+                            @foreach (var postagem in ViewBag.TopPostagens)
+                            {
+                                <a href="@Url.Action("PostLikes", new { postId = postagem.IdPostagem })" 
+                                   class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">@postagem.NmTitulo</h6>
+                                        <small>
+                                            <i class="bi bi-heart-fill text-danger"></i>
+                                            @postagem.NrLikes
+                                        </small>
+                                    </div>
+                                    <p class="mb-1 text-truncate">@postagem.NmConteudo</p>
+                                    <small>por @postagem.Usuario.NmUsuario</small>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Nenhuma postagem curtida ainda.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Top 10 Comentários Mais Curtidos -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Top 10 Comentários Mais Curtidos</h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.TopComentarios != null && ViewBag.TopComentarios.Count > 0)
+                    {
+                        <div class="list-group">
+                            @foreach (var comentario in ViewBag.TopComentarios)
+                            {
+                                <a href="@Url.Action("CommentLikes", new { commentId = comentario.IdComentario })" 
+                                   class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">@comentario.Usuario.NmUsuario</h6>
+                                        <small>
+                                            <i class="bi bi-heart-fill text-danger"></i>
+                                            @comentario.NrLikes
+                                        </small>
+                                    </div>
+                                    <p class="mb-1 text-truncate">@comentario.NmConteudo</p>
+                                    <small>em resposta a: @comentario.Postagem.NmTitulo</small>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Nenhum comentário curtido ainda.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

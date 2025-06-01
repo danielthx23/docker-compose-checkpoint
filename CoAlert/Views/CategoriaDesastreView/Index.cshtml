@@ -1,0 +1,47 @@
+@model IEnumerable<CoAlert.Application.Dtos.CategoriaDesastre.CategoriaDesastreResponseDto>
+
+@{
+    ViewData["Title"] = "Categorias de Desastre";
+}
+
+<h1>Categorias de Desastre</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Criar Nova</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NmTitulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DsCategoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NmTipo)
+            </th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NmTitulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DsCategoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NmTipo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdCategoriaDesastre" class="btn btn-warning btn-sm">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.IdCategoriaDesastre" class="btn btn-info btn-sm">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdCategoriaDesastre" class="btn btn-danger btn-sm">Excluir</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table> 

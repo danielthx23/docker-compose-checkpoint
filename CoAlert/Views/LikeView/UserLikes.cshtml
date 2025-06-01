@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "Curtidas do Usuário";
+}
+
+<div class="container">
+    <h1>Curtidas de @ViewBag.Usuario.NmUsuario</h1>
+
+    <div class="row">
+        <!-- Postagens Curtidas -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Postagens Curtidas</h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.PostagensCurtidas != null && ViewBag.PostagensCurtidas.Count > 0)
+                    {
+                        <div class="list-group">
+                            @foreach (var postagem in ViewBag.PostagensCurtidas)
+                            {
+                                <a href="@Url.Action("Details", "PostagemView", new { id = postagem.IdPostagem })" 
+                                   class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">@postagem.NmTitulo</h6>
+                                        <small>
+                                            <i class="bi bi-heart-fill text-danger"></i>
+                                            @postagem.NrLikes
+                                        </small>
+                                    </div>
+                                    <p class="mb-1 text-truncate">@postagem.NmConteudo</p>
+                                    <small>por @postagem.Usuario.NmUsuario em @postagem.DtEnvio.ToString("dd/MM/yyyy HH:mm")</small>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Este usuário ainda não curtiu nenhuma postagem.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Comentários Curtidos -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Comentários Curtidos</h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.ComentariosCurtidos != null && ViewBag.ComentariosCurtidos.Count > 0)
+                    {
+                        <div class="list-group">
+                            @foreach (var comentario in ViewBag.ComentariosCurtidos)
+                            {
+                                <a href="@Url.Action("Details", "PostagemView", new { id = comentario.PostagemId })" 
+                                   class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">@comentario.Usuario.NmUsuario</h6>
+                                        <small>
+                                            <i class="bi bi-heart-fill text-danger"></i>
+                                            @comentario.NrLikes
+                                        </small>
+                                    </div>
+                                    <p class="mb-1 text-truncate">@comentario.NmConteudo</p>
+                                    <small>em @comentario.DtEnvio.ToString("dd/MM/yyyy HH:mm")</small>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Este usuário ainda não curtiu nenhum comentário.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+    </div>
+</div> 

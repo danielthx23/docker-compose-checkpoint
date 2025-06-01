@@ -1,0 +1,48 @@
+@model CoAlert.Application.Dtos.Usuario.UsuarioRequestDto
+
+@{
+    ViewData["Title"] = "Editar Usuário";
+}
+
+<div class="container">
+    <h1>Editar Usuário</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+                <div class="form-group mb-3">
+                    <label asp-for="NmUsuario" class="control-label">Nome de Usuário</label>
+                    <input asp-for="NmUsuario" class="form-control" />
+                    <span asp-validation-for="NmUsuario" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NmEmail" class="control-label">Email</label>
+                    <input asp-for="NmEmail" class="form-control" type="email" />
+                    <span asp-validation-for="NmEmail" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NrSenha" class="control-label">Nova Senha (deixe em branco para manter a atual)</label>
+                    <input asp-for="NrSenha" class="form-control" type="password" />
+                    <span asp-validation-for="NrSenha" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Salvar
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Voltar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

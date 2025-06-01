@@ -1,0 +1,59 @@
+@model IEnumerable<CoAlert.Application.Dtos.Comentario.ComentarioResponseDto>
+
+@{
+    ViewData["Title"] = "Comentários";
+}
+
+<div class="container">
+    <h1>Comentários</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Novo Comentário
+        </a>
+    </p>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 comentario-card">
+                    <div class="card-body">
+                        <p class="card-text">@item.NmConteudo</p>
+                        <div class="small text-muted mb-2">
+                            <i class="bi bi-person"></i> @item.Usuario.NmUsuario
+                            <span class="mx-2">|</span>
+                            <i class="bi bi-newspaper"></i> @item.Postagem.NmTitulo
+                        </div>
+                        <div class="small text-muted">
+                            <i class="bi bi-clock"></i> Enviado em: @item.DtEnvio.ToString("dd/MM/yyyy HH:mm")
+                            <span class="mx-2">|</span>
+                            <i class="bi bi-heart"></i> @item.NrLikes curtidas
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group">
+                            <a asp-action="Edit" asp-route-id="@item.IdComentario" class="btn btn-primary">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.IdComentario" class="btn btn-info">
+                                <i class="bi bi-info-circle"></i> Detalhes
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.IdComentario" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Excluir
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+    </script>
+} 

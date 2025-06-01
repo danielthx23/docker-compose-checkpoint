@@ -1,0 +1,66 @@
+@model CoAlert.Application.Dtos.Postagem.PostagemRequestDto
+
+@{
+    ViewData["Title"] = "Nova Postagem";
+}
+
+<div class="container">
+    <h1>Nova Postagem</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NmTitulo" class="control-label">Título</label>
+                    <input asp-for="NmTitulo" class="form-control" />
+                    <span asp-validation-for="NmTitulo" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="NmConteudo" class="control-label">Conteúdo</label>
+                    <textarea asp-for="NmConteudo" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="NmConteudo" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="UsuarioId" class="control-label">Usuário</label>
+                    <select asp-for="UsuarioId" class="form-select" asp-items="@(new SelectList(ViewBag.Usuarios, "IdUsuario", "NmUsuario"))">
+                        <option value="">Selecione um usuário</option>
+                    </select>
+                    <span asp-validation-for="UsuarioId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="CategoriaDesastreId" class="control-label">Categoria</label>
+                    <select asp-for="CategoriaDesastreId" class="form-select" asp-items="@(new SelectList(ViewBag.Categorias, "IdCategoriaDesastre", "NmTitulo"))">
+                        <option value="">Selecione uma categoria</option>
+                    </select>
+                    <span asp-validation-for="CategoriaDesastreId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="LocalizacaoId" class="control-label">Localização</label>
+                    <select asp-for="LocalizacaoId" class="form-select" asp-items="@(new SelectList(ViewBag.Localizacoes, "IdLocalizacao", "NmCidade"))">
+                        <option value="">Selecione uma localização</option>
+                    </select>
+                    <span asp-validation-for="LocalizacaoId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Salvar
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Voltar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

@@ -1,0 +1,54 @@
+@model CoAlert.Application.Dtos.Localizacao.LocalizacaoResponseDto
+
+@{
+    ViewData["Title"] = "Detalhes da Localização";
+}
+
+<div class="container">
+    <h1>Detalhes da Localização</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <dl class="row">
+                        <dt class="col-sm-3">Logradouro</dt>
+                        <dd class="col-sm-9">@Model.NmLogradouro</dd>
+
+                        <dt class="col-sm-3">Número</dt>
+                        <dd class="col-sm-9">@Model.NrNumero</dd>
+
+                        <dt class="col-sm-3">Bairro</dt>
+                        <dd class="col-sm-9">@Model.NmBairro</dd>
+
+                        @if (!string.IsNullOrEmpty(Model.DsComplemento))
+                        {
+                            <dt class="col-sm-3">Complemento</dt>
+                            <dd class="col-sm-9">@Model.DsComplemento</dd>
+                        }
+
+                        <dt class="col-sm-3">CEP</dt>
+                        <dd class="col-sm-9">@Model.NrCep</dd>
+
+                        <dt class="col-sm-3">Cidade</dt>
+                        <dd class="col-sm-9">@Model.NmCidade</dd>
+
+                        <dt class="col-sm-3">Estado</dt>
+                        <dd class="col-sm-9">@Model.NmEstado</dd>
+
+                        <dt class="col-sm-3">País</dt>
+                        <dd class="col-sm-9">@Model.NmPais</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Edit" asp-route-id="@Model.IdLocalizacao" class="btn btn-primary">
+                <i class="bi bi-pencil"></i> Editar
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </div>
+</div> 
