@@ -1,1 +1,242 @@
-TODO
+# Mottracker
+
+## Descrição do Projeto
+
+O Co-Alert surge como uma rede colaborativa de comunicação, que funciona como uma plataforma tipo fórum, permitindo aos usuários compartilhar informações em tempo real sobre desastres naturais e eventos climáticos extremos. Através de publicações detalhadas, que incluem tipo de ocorrência, localização exata e imagens, a comunidade pode acessar informações confiáveis e atualizadas, melhorando a tomada de decisões e a preparação para esses eventos.
+
+Nosso público-alvo é composto por pessoas que vivem em áreas vulneráveis a desastres naturais, indivíduos com acesso limitado a informações oficiais e qualquer pessoa interessada em estar preparada para situações de emergência climática.
+
+Com o Co-Alert, buscamos impactar positivamente a vida dessas pessoas, reduzindo a desinformação e os alarmes falsos, facilitando o fluxo rápido e acessível de dados relevantes, para que possam agir com segurança e antecedência.
+
+Este projeto responde a um desafio crescente: o aumento de até 460% nos desastres climáticos no Brasil desde os anos 1990, comprovando a necessidade de ferramentas eficientes para comunicação e prevenção
+
+Essa integração permite o acompanhamento via aplicativo, promovendo **eficiência, segurança e organização**. O sistema também gerencia cadastro/edição de dados, autenticação/autorizacão, gestão de permissões e dashboards com relatórios para tomada de decisão.
+
+## Autores
+
+### Turma 2TDSR - Análise e Desenvolvimento de Sistemas
+
+* Daniel Saburo Akiyama - RM 558263
+* Danilo Correia e Silva - RM 557540
+* João Pedro Rodrigues da Costa - RM 558199
+
+## Scripts 
+
+## Dockerfile
+
+Dockerfile de produção (mais leve):
+[Dockerfile Production](./Mottracker/Dockerfile.dev)
+
+Dockerfile de desenvolvimento (mais pesada):
+[Dockerfile Development](./Mottracker/Dockerfile.dev-migration)
+
+Imagem Docker Hub: [Imagem Docker Hub com as duas Tags](https://hub.docker.com/repository/docker/danielakiyama/mottracker/general)
+
+**Observação**: Em produção, o ideal é usar a imagem aspnet apenas para executar a aplicação, deixando as migrações para serem feitas fora do container ou em um container separado com o SDK. Isso torna a imagem final mais leve e segura. Contudo, optamos por utilizar o SDK na imagem para facilitar o desenvolvimento do projeto.
+
+## Instalação do Projeto via Docker (Entrega DevOps)
+
+### Requisitos
+- Docker instalado e com a engine ligada
+
+### Configuração
+
+1. Rode um container utilizando variaveis de ambiente e a imagem no Docker Hub pelo build
+
+Utilize o comando abaixo, substituindo meuusuario e minhasenha com suas credenciais do Oracle DB:
+
+```bash
+  # Esse comando só funciona em bash por conta do \
+  docker run -d \
+  -e ORACLE_USER=seusuario \
+  -e ORACLE_PASSWORD=suasenha \
+  -e ORACLE_HOST=oracle.fiap.com.br \
+  -e ORACLE_PORT=1521 \
+  -e ORACLE_SID=ORCL \
+  -e RUN_MIGRATIONS=true \
+  -e ASPNETCORE_ENVIRONMENT=Development \
+  -p 5169:5169 \
+  danielakiyama/mottracker:development-v1.0.0
+```
+
+Em uma linha só (recomendado):
+```bash
+  # Funciona no CMD e Bash (recomendado)
+  docker run -d -e ORACLE_USER=seusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SID=ORCL -e RUN_MIGRATIONS=true -e ASPNETCORE_ENVIRONMENT=Development -p 5169:5169 danielakiyama/mottracker:development-v1.0.0
+```
+
+OU, se não quiser rodar as migrations:
+
+```bash
+  # Esse comando só funciona em bash por conta do \
+  docker run -d \
+  -e ORACLE_USER=seusuario \
+  -e ORACLE_PASSWORD=suasenha \
+  -e ORACLE_HOST=oracle.fiap.com.br \
+  -e ORACLE_PORT=1521 \
+  -e ORACLE_SID=ORCL \
+  -e ASPNETCORE_ENVIRONMENT=Development \
+  -p 5169:5169 \
+  danielakiyama/mottracker:production-v1.0.0
+```
+
+Em uma linha só (recomendado):
+```bash
+  # Funciona no CMD e Bash (recomendado)
+  docker run -d -e ORACLE_USER=seusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SID=ORCL -e danielakiyama/mottracker:development-migration-v1.0.0
+```
+
+Legendas:
+
+```bash
+docker run -d \
+  -e ORACLE_USER=seusuario           # Usuário do banco Oracle
+  -e ORACLE_PASSWORD=suasenha        # Senha do usuário Oracle
+  -e ORACLE_HOST=oracle.fiap.com.br  # Host do banco Oracle
+  -e ORACLE_PORT=1521                # Porta do banco Oracle (geralmente 1521)
+  -e ORACLE_SID=ORCL                 # SID da instância Oracle
+  -e RUN_MIGRATIONS=true             # Controla se as migrações serão executadas na inicialização (true/false)
+  danielakiyama/mottracker:<tags diferentes>  # Nome da imagem e tag Docker a ser executada, lembrando Development (leve) não roda migrations, Development-Migration (pesada) roda.
+```
+
+## Instalação do Projeto via Host (Entrega DotNET)
+
+### Requisitos
+- .NET SDK 8.0 instalado
+- Rider / Visual Studio instalado (opcional)
+
+### Configuração
+
+Clone o projeto utilizando git
+
+1. No arquivo `appsettings.Development.json`, configure e adicione a string de conexão do Oracle DB com seu usuário e senha, por exemplo:
+
+```json
+"ConnectionStrings": {
+  "Oracle": "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=oracle.fiap.com.br)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SID=ORCL)));User Id=seuusuario;Password=suasenha;"
+}
+```
+
+2. Execute as migrations para criar as tabelas no banco Oracle:
+
+   (entre no diretório do projeto primeiro)
+
+```bash
+  dotnet ef database update
+```
+
+Caso não tenha a ferramenta dotnet-ef instalada, instale com:
+
+```bash
+  dotnet tool install --global dotnet-ef
+```
+
+### Rodar o Projeto Localmente
+
+Após configurar a string de conexão e aplicar as migrations, você pode rodar a API de duas maneiras:
+
+#### 1. Com IDE (Rider ou Visual Studio)
+
+1. Abra a solução no Rider ou Visual Studio.
+2. Selecione o projeto da API como *Startup Project*.
+3. Clique em **Run** com o perfil `http`.
+
+#### 2. Sem IDE (usando linha de comando)
+
+1. **Restaurar e compilar:**
+
+- Para rodar o backend, entre no diretório `Mottracker_DotNet` antes de executar o comando.
+  
+- Caso deseje rodar o backend de dentro do diretório do projeto .net, altere o caminho e remova a flag `--project CoAlert` no comando correspondente.
+
+```bash
+dotnet restore CoAlert/CoAlert.csproj
+dotnet build
+```
+
+4. **Rodar o projeto:**
+
+```bash
+dotnet run --project CoAlert --urls "http://localhost:5024"
+```
+
+## Acesso à API
+
+- Interface Razor: [http://localhost:5024/](http://localhost:5024/)
+- API: [http://localhost:5024/api/](http://localhost:5024/api/)
+- Swagger: [http://localhost:5169/swagger](http://localhost:5024/swagger/index.html)
+
+## Rotas da API
+
+### Categoria de desastre
+
+| Método | Rota                                 | Descrição                             |
+| ------ | ------------------------------------ | ------------------------------------- |
+| GET    | `/CategoriaDesastre`                 | Lista todas as categorias de desastre |
+| POST   | `/CategoriaDesastre`                 | Cria uma nova categoria               |
+| GET    | `/CategoriaDesastre/{id}`            | Obtém categoria por ID                |
+| PUT    | `/CategoriaDesastre/{id}`            | Atualiza uma categoria                |
+| DELETE | `/CategoriaDesastre/{id}`            | Deleta uma categoria                  |
+| GET    | `/CategoriaDesastre/tipo/{tipo}`     | Obtém categorias por tipo             |
+| GET    | `/CategoriaDesastre/titulo/{titulo}` | Obtém categorias por título           |
+
+### Comentários
+
+| Método | Rota                                   | Descrição                  |
+| ------ | -------------------------------------- | -------------------------- |
+| GET    | `/Comentario`                          | Lista todos os comentários |
+| POST   | `/Comentario`                          | Cria um novo comentário    |
+| GET    | `/Comentario/{id}`                     | Obtém comentário por ID    |
+| PUT    | `/Comentario/{id}`                     | Atualiza um comentário     |
+| DELETE | `/Comentario/{id}`                     | Deleta um comentário       |
+| GET    | `/Comentario/postagem/{postagemId}`    | Comentários por postagem   |
+| GET    | `/Comentario/usuario/{usuarioId}`      | Comentários por usuário    |
+| GET    | `/Comentario/respostas/{comentarioId}` | Respostas de um comentário |
+
+### Likes
+
+| Método | Rota                              | Descrição              |
+| ------ | --------------------------------- | ---------------------- |
+| POST   | `/Like/toggle`                    | Alternar curtida       |
+| GET    | `/Like/postagem/{postagemId}`     | Curtidas da postagem   |
+| GET    | `/Like/comentario/{comentarioId}` | Curtidas do comentário |
+| GET    | `/Like/usuario/{usuarioId}`       | Curtidas do usuário    |
+
+### Localização
+
+| Método | Rota                           | Descrição                   |
+| ------ | ------------------------------ | --------------------------- |
+| GET    | `/Localizacao`                 | Lista todas as localizações |
+| POST   | `/Localizacao`                 | Cria uma nova localização   |
+| GET    | `/Localizacao/{id}`            | Obtém localização por ID    |
+| PUT    | `/Localizacao/{id}`            | Atualiza uma localização    |
+| DELETE | `/Localizacao/{id}`            | Deleta uma localização      |
+| GET    | `/Localizacao/cidade/{cidade}` | Localizações por cidade     |
+| GET    | `/Localizacao/estado/{estado}` | Localizações por estado     |
+| GET    | `/Localizacao/cep/{cep}`       | Localização por CEP         |
+
+### Postagem
+
+| Método | Rota                                    | Descrição                 |
+| ------ | --------------------------------------- | ------------------------- |
+| GET    | `/Postagem`                             | Lista todas as postagens  |
+| POST   | `/Postagem`                             | Cria uma nova postagem    |
+| GET    | `/Postagem/{id}`                        | Obtém postagem por ID     |
+| PUT    | `/Postagem/{id}`                        | Atualiza uma postagem     |
+| DELETE | `/Postagem/{id}`                        | Deleta uma postagem       |
+| GET    | `/Postagem/usuario/{usuarioId}`         | Postagens por usuário     |
+| GET    | `/Postagem/categoria/{categoriaId}`     | Postagens por categoria   |
+| GET    | `/Postagem/localizacao/{localizacaoId}` | Postagens por localização |
+
+### Usuário
+
+| Método | Rota                  | Descrição               |
+| ------ | --------------------- | ----------------------- |
+| GET    | `/Usuario`            | Lista todos os usuários |
+| POST   | `/Usuario`            | Cria um novo usuário    |
+| GET    | `/Usuario/{id}`       | Obtém usuário por ID    |
+| PUT    | `/Usuario/{id}`       | Atualiza um usuário     |
+| DELETE | `/Usuario/{id}`       | Deleta um usuário       |
+| POST   | `/Usuario/autenticar` | Autentica um usuário    |
+
+
