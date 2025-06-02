@@ -59,7 +59,7 @@ Essa integração permite o acompanhamento via aplicativo, promovendo **eficiên
 
 ## Diagramas Database
 
-![Diagrama](./CoAlert/wwwroot/images/diagramacoalert.png)
+![Diagrama](./CoAlert/wwwroot/imagens/diagramacoalert.png)
 
 ## Dockerfile
 
