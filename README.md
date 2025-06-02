@@ -9,6 +9,7 @@
   - [Descrição do Projeto](#descrição-do-projeto)
   - [Autores](#autores)
     - [Turma 2TDSR - Análise e Desenvolvimento de Sistemas](#turma-2tdsr---análise-e-desenvolvimento-de-sistemas)
+  - [Diagrama Database](#diagramas-database)
   - [Dockerfile](#dockerfile)
   - [Instalação do Projeto via Docker](#instalação-do-projeto-via-docker)
     - [Requisitos](#requisitos)
