@@ -57,6 +57,10 @@ Essa integração permite o acompanhamento via aplicativo, promovendo **eficiên
 * Danilo Correia e Silva - RM 557540
 * João Pedro Rodrigues da Costa - RM 558199
 
+## Diagramas Database
+
+![Diagrama](./CoAlert/wwwroot/images/diagramacoalert.png)
+
 ## Dockerfile
 
 Dockerfile de desenvolvimento sem migração (mais leve):
