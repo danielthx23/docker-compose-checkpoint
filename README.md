@@ -1,8 +1,8 @@
 # Co-Alert
 
-## Sumário
-
 ---
+
+## Sumário
 
 - [Co-Alert](#co-alert)
   - [Sumário](#sumário)
