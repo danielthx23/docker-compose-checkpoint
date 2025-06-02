@@ -20,21 +20,19 @@ Essa integração permite o acompanhamento via aplicativo, promovendo **eficiên
 * Danilo Correia e Silva - RM 557540
 * João Pedro Rodrigues da Costa - RM 558199
 
-## Scripts 
-
 ## Dockerfile
 
-Dockerfile de produção (mais leve):
-[Dockerfile Production](./Mottracker/Dockerfile.dev)
+Dockerfile de desenvolvimento sem migração (mais leve):
+[Dockerfile Production](./CoAlert/Dockerfile.dev)
 
-Dockerfile de desenvolvimento (mais pesada):
-[Dockerfile Development](./Mottracker/Dockerfile.dev-migration)
+Dockerfile de desenvolvimento com migração (mais pesada):
+[Dockerfile Development](./CoAlert/Dockerfile.dev-migration)
 
-Imagem Docker Hub: [Imagem Docker Hub com as duas Tags](https://hub.docker.com/repository/docker/danielakiyama/mottracker/general)
+Imagem Docker Hub: [Imagem Docker Hub com as duas Tags](https://hub.docker.com/repository/docker/danielakiyama/coalert/general)
 
 **Observação**: Em produção, o ideal é usar a imagem aspnet apenas para executar a aplicação, deixando as migrações para serem feitas fora do container ou em um container separado com o SDK. Isso torna a imagem final mais leve e segura. Contudo, optamos por utilizar o SDK na imagem para facilitar o desenvolvimento do projeto.
 
-## Instalação do Projeto via Docker (Entrega DevOps)
+## Instalação do Projeto via Docker 
 
 ### Requisitos
 - Docker instalado e com a engine ligada
@@ -54,15 +52,13 @@ Utilize o comando abaixo, substituindo meuusuario e minhasenha com suas credenci
   -e ORACLE_PORT=1521 \
   -e ORACLE_SID=ORCL \
   -e RUN_MIGRATIONS=true \
-  -e ASPNETCORE_ENVIRONMENT=Development \
-  -p 5169:5169 \
-  danielakiyama/mottracker:development-v1.0.0
+  danielakiyama/coalert:development-migration-v1.0.0
 ```
 
 Em uma linha só (recomendado):
 ```bash
   # Funciona no CMD e Bash (recomendado)
-  docker run -d -e ORACLE_USER=seusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SID=ORCL -e RUN_MIGRATIONS=true -e ASPNETCORE_ENVIRONMENT=Development -p 5169:5169 danielakiyama/mottracker:development-v1.0.0
+  docker run -d -e ORACLE_USER=seusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SID=ORCL -e RUN_MIGRATIONS=true danielakiyama/coalert:development-migration-v1.0.0
 ```
 
 OU, se não quiser rodar as migrations:
@@ -75,15 +71,13 @@ OU, se não quiser rodar as migrations:
   -e ORACLE_HOST=oracle.fiap.com.br \
   -e ORACLE_PORT=1521 \
   -e ORACLE_SID=ORCL \
-  -e ASPNETCORE_ENVIRONMENT=Development \
-  -p 5169:5169 \
-  danielakiyama/mottracker:production-v1.0.0
+  danielakiyama/coalert:development-v1.0.0
 ```
 
 Em uma linha só (recomendado):
 ```bash
   # Funciona no CMD e Bash (recomendado)
-  docker run -d -e ORACLE_USER=seusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SID=ORCL -e danielakiyama/mottracker:development-migration-v1.0.0
+  docker run -d -e ORACLE_USER=seusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SID=ORCL danielakiyama/coalert:development-v1.0.0
 ```
 
 Legendas:
@@ -99,7 +93,7 @@ docker run -d \
   danielakiyama/mottracker:<tags diferentes>  # Nome da imagem e tag Docker a ser executada, lembrando Development (leve) não roda migrations, Development-Migration (pesada) roda.
 ```
 
-## Instalação do Projeto via Host (Entrega DotNET)
+## Instalação do Projeto via Host
 
 ### Requisitos
 - .NET SDK 8.0 instalado
@@ -113,9 +107,19 @@ Clone o projeto utilizando git
 
 ```json
 "ConnectionStrings": {
-  "Oracle": "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=oracle.fiap.com.br)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SID=ORCL)));User Id=seuusuario;Password=suasenha;"
+  "Oracle": "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=seuhost)(PORT=suaporta)))(CONNECT_DATA=(SERVER=DEDICATED)(SID=seusid)));User Id=seuusuario;Password=suasenha;"
 }
 ```
+
+Ou crie um arquivo .env no diretório do projeto contendo: 
+
+´´´bash
+  ORACLE_USER=seusuario
+  ORACLE_PASSWORD=suasenha
+  ORACLE_HOST=seuhost
+  ORACLE_PORT=suaporta
+  ORACLE_SID=seusid
+´´´
 
 2. Execute as migrations para criar as tabelas no banco Oracle:
 
@@ -145,7 +149,7 @@ Após configurar a string de conexão e aplicar as migrations, você pode rodar 
 
 1. **Restaurar e compilar:**
 
-- Para rodar o backend, entre no diretório `Mottracker_DotNet` antes de executar o comando.
+- Para rodar o backend, entre no diretório `CoAlert_DotNet` antes de executar o comando.
   
 - Caso deseje rodar o backend de dentro do diretório do projeto .net, altere o caminho e remova a flag `--project CoAlert` no comando correspondente.
 
@@ -162,9 +166,13 @@ dotnet run --project CoAlert --urls "http://localhost:5024"
 
 ## Acesso à API
 
-- Interface Razor: [http://localhost:5024/](http://localhost:5024/)
-- API: [http://localhost:5024/api/](http://localhost:5024/api/)
-- Swagger: [http://localhost:5169/swagger](http://localhost:5024/swagger/index.html)
+- Aplicação Razor: [http://localhost:5024/](http://localhost:5024/)
+- API: [http://localhost:5024/api](http://localhost:5024/api/)
+- Swagger: [http://localhost:5024/swagger](http://localhost:5024/swagger/index.html)
+
+## Exemplos de teste
+
+
 
 ## Rotas da API
 
