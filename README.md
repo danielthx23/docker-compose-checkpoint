@@ -1,5 +1,8 @@
 # Co-Alert
 
+## Sumário
+
+
 ## Descrição do Projeto
 
 O Co-Alert surge como uma rede colaborativa de comunicação, que funciona como uma plataforma tipo fórum, permitindo aos usuários compartilhar informações em tempo real sobre desastres naturais e eventos climáticos extremos. Através de publicações detalhadas, que incluem tipo de ocorrência, localização exata e imagens, a comunidade pode acessar informações confiáveis e atualizadas, melhorando a tomada de decisões e a preparação para esses eventos.
@@ -173,9 +176,155 @@ dotnet run --project CoAlert --urls "http://localhost:5024"
 - API: [http://localhost:5024/api](http://localhost:5024/api/)
 - Swagger: [http://localhost:5024/swagger](http://localhost:5024/swagger/index.html)
 
-## Exemplos de teste
+## Exemplos de Teste da API
 
+### Categoria de Desastre
 
+**Exemplo POST**
+
+```json
+{
+  "nmTitulo": "Enchente Urbana",
+  "dsCategoria": "Desastres relacionados ao acúmulo de água em áreas urbanas devido a chuvas intensas.",
+  "nmTipo": "Hidrológico"
+}
+```
+
+**Exemplo PUT**
+
+```json
+{
+  "nmTitulo": "Enchente Urbana Moderada",
+  "dsCategoria": "Inundações em áreas urbanas causadas por chuvas acima da média, com impactos localizados.",
+  "nmTipo": "Hidrológico"
+}
+```
+
+---
+
+### Localização
+
+**Exemplo POST**
+
+```json
+{
+  "nmBairro": "Centro",
+  "nmLogradouro": "Rua das Flores",
+  "nrNumero": 123,
+  "nmCidade": "São Paulo",
+  "nmEstado": "SP",
+  "nrCep": "01001-000",
+  "nmPais": "Brasil",
+  "dsComplemento": "Apartamento 101"
+}
+```
+
+**Exemplo PUT**
+
+```json
+{
+  "nmBairro": "Centro",
+  "nmLogradouro": "Rua das Palmeiras",
+  "nrNumero": 456,
+  "nmCidade": "São Paulo",
+  "nmEstado": "SP",
+  "nrCep": "01001-001",
+  "nmPais": "Brasil",
+  "dsComplemento": "Bloco B, Apt. 202"
+}
+```
+
+---
+
+### Usuário
+
+**Exemplo POST**
+
+```json
+{
+  "nmUsuario": "joaosilva",
+  "nrSenha": "SenhaForte123!",
+  "nmEmail": "joao.silva@email.com"
+}
+```
+
+**Exemplo PUT**
+
+```json
+{
+  "nmUsuario": "joaosilva_atualizado",
+  "nrSenha": "NovaSenhaSegura456!",
+  "nmEmail": "joao.silva.novo@email.com"
+}
+```
+
+---
+
+### Postagem
+
+**Exemplo POST**
+
+```json
+{
+  "nmTitulo": "Deslizamento em encosta",
+  "nmConteudo": "Foi registrado um deslizamento de terra em uma área de risco após fortes chuvas.",
+  "usuarioId": COLOQUE_O_ID_DO_USUARIO,
+  "categoriaDesastreId": COLOQUE_O_ID_DA_CATEGORIA,
+  "localizacaoId": COLOQUE_O_ID_DA_LOCALIZACAO
+}
+```
+
+**Exemplo PUT**
+
+```json
+{
+  "nmTitulo": "Deslizamento em encosta atualizado",
+  "nmConteudo": "Atualização: o deslizamento afetou três residências e interditou a rua principal.",
+  "usuarioId": COLOQUE_O_ID_DO_USUARIO,
+  "categoriaDesastreId": COLOQUE_O_ID_DA_CATEGORIA,
+  "localizacaoId": COLOQUE_O_ID_DA_LOCALIZACAO
+}
+```
+
+---
+
+### Comentário
+
+**Exemplo POST**
+
+```json
+{
+  "nmConteudo": "Excelente relato, obrigado por compartilhar!",
+  "usuarioId": COLOQUE_O_ID_DO_USUARIO,
+  "postagemId": COLOQUE_O_ID_DA_POSTAGEM,
+  "idComentarioParente": 0
+}
+```
+
+**Exemplo PUT**
+
+```json
+{
+  "nmConteudo": "Atualizando meu comentário: a situação foi resolvida pela Defesa Civil.",
+  "usuarioId": COLOQUE_O_ID_DO_USUARIO,
+  "postagemId": COLOQUE_O_ID_DA_POSTAGEM,
+  "idComentarioParente": 0
+}
+```
+
+---
+
+### Like
+
+**Exemplo POST**
+
+```json
+{
+  "usuarioId": COLOQUE_O_ID_DO_USUARIO,
+  "postagemId": COLOQUE_O_ID_DA_POSTAGEM,
+  "comentarioId": COLOQUE_O_ID_DO_COMENTARIO
+}
+```
 
 ## Rotas da API
 
