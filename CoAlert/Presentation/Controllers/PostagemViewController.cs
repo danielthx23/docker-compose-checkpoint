@@ -2,11 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using CoAlert.Application.Interfaces;
 using CoAlert.Application.Dtos.Postagem;
 using CoAlert.Application.Dtos.Comentario;
-using CoAlert.Domain.Interfaces;
-using CoAlert.Domain.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CoAlert.Presentation.Controllers
 {
@@ -91,27 +87,6 @@ namespace CoAlert.Presentation.Controllers
             ViewBag.ComentariosCurtidos = comentariosCurtidos;
 
             return View(postagem);
-        }
-
-        private bool ContainsInappropriateContent(string content)
-        {
-            if (string.IsNullOrWhiteSpace(content))
-                return false;
-
-            // Lista de palavras e frases inapropriadas
-            var inappropriateWords = new[]
-            {
-                "fuck", "foder", "porra", "caralho", "merda", 
-                "motherfucker", "bitch", "vai se funder",
-                "must perish", "die", "death", "kill",
-                // Adicione mais palavras conforme necessário
-            };
-
-            // Normalize the content for comparison
-            content = content.ToLower().Trim();
-
-            // Check for inappropriate words
-            return inappropriateWords.Any(word => content.Contains(word.ToLower()));
         }
 
         public IActionResult Create()

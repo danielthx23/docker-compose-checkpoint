@@ -6,7 +6,7 @@ using System.Net;
 
 namespace CoAlert.Presentation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/postagem")]
     [ApiController]
     public class PostagemController : ControllerBase
     {
@@ -62,7 +62,7 @@ namespace CoAlert.Presentation.Controllers
             return NoContent();
         }
 
-        [HttpGet("categoria/{categoriaId}")]
+        [HttpGet("categoria-desastre/{categoriaId}")]
         [SwaggerOperation(Summary = "Obtém postagens por categoria", Description = "Retorna todas as postagens de uma determinada categoria.")]
         [SwaggerResponse(200, "Postagens retornadas com sucesso", typeof(IEnumerable<PostagemResponseDto>))]
         [SwaggerResponse(204, "Nenhuma postagem encontrada")]

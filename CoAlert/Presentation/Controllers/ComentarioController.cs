@@ -6,7 +6,7 @@ using System.Net;
 
 namespace CoAlert.Presentation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/comentario")]
     [ApiController]
     public class ComentarioController : ControllerBase
     {

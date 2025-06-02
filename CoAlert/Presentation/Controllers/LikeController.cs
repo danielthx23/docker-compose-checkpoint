@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace CoAlert.Presentation.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/like")]
     public class LikeController : ControllerBase
     {
         private readonly ILikeApplicationService _likeService;

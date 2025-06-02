@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using CoAlert.Application.Interfaces;
-using System.Linq;
 
 namespace CoAlert.Presentation.Controllers
 {

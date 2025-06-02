@@ -379,71 +379,71 @@ dotnet run --project CoAlert --urls "http://localhost:5024"
 
 | Método | Rota                                 | Descrição                             |
 | ------ | ------------------------------------ | ------------------------------------- |
-| GET    | `/CategoriaDesastre`                 | Lista todas as categorias de desastre |
-| POST   | `/CategoriaDesastre`                 | Cria uma nova categoria               |
-| GET    | `/CategoriaDesastre/{id}`            | Obtém categoria por ID                |
-| PUT    | `/CategoriaDesastre/{id}`            | Atualiza uma categoria                |
-| DELETE | `/CategoriaDesastre/{id}`            | Deleta uma categoria                  |
-| GET    | `/CategoriaDesastre/tipo/{tipo}`     | Obtém categorias por tipo             |
-| GET    | `/CategoriaDesastre/titulo/{titulo}` | Obtém categorias por título           |
+| GET    | `/categoria-desastre`                 | Lista todas as categorias de desastre |
+| POST   | `/categoria-desastre`                 | Cria uma nova categoria               |
+| GET    | `/categoria-desastre/{id}`            | Obtém categoria por ID                |
+| PUT    | `/categoria-desastre/{id}`            | Atualiza uma categoria                |
+| DELETE | `/categoria-desastre/{id}`            | Deleta uma categoria                  |
+| GET    | `/categoria-desastre/tipo/{tipo}`     | Obtém categorias por tipo             |
+| GET    | `/categoria-desastre/titulo/{titulo}` | Obtém categorias por título           |
 
 ### Comentários
 
 | Método | Rota                                   | Descrição                  |
 | ------ | -------------------------------------- | -------------------------- |
-| GET    | `/Comentario`                          | Lista todos os comentários |
-| POST   | `/Comentario`                          | Cria um novo comentário    |
-| GET    | `/Comentario/{id}`                     | Obtém comentário por ID    |
-| PUT    | `/Comentario/{id}`                     | Atualiza um comentário     |
-| DELETE | `/Comentario/{id}`                     | Deleta um comentário       |
-| GET    | `/Comentario/postagem/{postagemId}`    | Comentários por postagem   |
-| GET    | `/Comentario/usuario/{usuarioId}`      | Comentários por usuário    |
-| GET    | `/Comentario/respostas/{comentarioId}` | Respostas de um comentário |
+| GET    | `/comentario`                          | Lista todos os comentários |
+| POST   | `/comentario`                          | Cria um novo comentário    |
+| GET    | `/comentario/{id}`                     | Obtém comentário por ID    |
+| PUT    | `/comentario/{id}`                     | Atualiza um comentário     |
+| DELETE | `/comentario/{id}`                     | Deleta um comentário       |
+| GET    | `/comentario/postagem/{postagemId}`    | Comentários por postagem   |
+| GET    | `/comentario/usuario/{usuarioId}`      | Comentários por usuário    |
+| GET    | `/comentario/respostas/{comentarioId}` | Respostas de um comentário |
 
 ### Likes
 
 | Método | Rota                              | Descrição              |
-| ------ | --------------------------------- | ---------------------- |
-| POST   | `/Like/toggle`                    | Alternar curtida       |
-| GET    | `/Like/postagem/{postagemId}`     | Curtidas da postagem   |
-| GET    | `/Like/comentario/{comentarioId}` | Curtidas do comentário |
-| GET    | `/Like/usuario/{usuarioId}`       | Curtidas do usuário    |
+| ------ |-----------------------------------| ---------------------- |
+| POST   | `/like/toggle`                    | Alternar curtida       |
+| GET    | `/like/postagem/{postagemId}`     | Curtidas da postagem   |
+| GET    | `/like/comentario/{comentarioId}` | Curtidas do comentário |
+| GET    | `/like/usuario/{usuarioId}`       | Curtidas do usuário    |
 
 ### Localização
 
 | Método | Rota                           | Descrição                   |
 | ------ | ------------------------------ | --------------------------- |
-| GET    | `/Localizacao`                 | Lista todas as localizações |
-| POST   | `/Localizacao`                 | Cria uma nova localização   |
-| GET    | `/Localizacao/{id}`            | Obtém localização por ID    |
-| PUT    | `/Localizacao/{id}`            | Atualiza uma localização    |
-| DELETE | `/Localizacao/{id}`            | Deleta uma localização      |
-| GET    | `/Localizacao/cidade/{cidade}` | Localizações por cidade     |
-| GET    | `/Localizacao/estado/{estado}` | Localizações por estado     |
-| GET    | `/Localizacao/cep/{cep}`       | Localização por CEP         |
+| GET    | `/localizacao`                 | Lista todas as localizações |
+| POST   | `/localizacao`                 | Cria uma nova localização   |
+| GET    | `/localizacao/{id}`            | Obtém localização por ID    |
+| PUT    | `/localizacao/{id}`            | Atualiza uma localização    |
+| DELETE | `/localizacao/{id}`            | Deleta uma localização      |
+| GET    | `/localizacao/cidade/{cidade}` | Localizações por cidade     |
+| GET    | `/localizacao/estado/{estado}` | Localizações por estado     |
+| GET    | `/localizacao/cep/{cep}`       | Localização por CEP         |
 
 ### Postagem
 
-| Método | Rota                                    | Descrição                 |
-| ------ | --------------------------------------- | ------------------------- |
-| GET    | `/Postagem`                             | Lista todas as postagens  |
-| POST   | `/Postagem`                             | Cria uma nova postagem    |
-| GET    | `/Postagem/{id}`                        | Obtém postagem por ID     |
-| PUT    | `/Postagem/{id}`                        | Atualiza uma postagem     |
-| DELETE | `/Postagem/{id}`                        | Deleta uma postagem       |
-| GET    | `/Postagem/usuario/{usuarioId}`         | Postagens por usuário     |
-| GET    | `/Postagem/categoria/{categoriaId}`     | Postagens por categoria   |
-| GET    | `/Postagem/localizacao/{localizacaoId}` | Postagens por localização |
+| Método | Rota                                         | Descrição                 |
+| ------ |----------------------------------------------| ------------------------- |
+| GET    | `/postagem`                                  | Lista todas as postagens  |
+| POST   | `/postagem`                                  | Cria uma nova postagem    |
+| GET    | `/postagem/{id}`                             | Obtém postagem por ID     |
+| PUT    | `/postagem/{id}`                             | Atualiza uma postagem     |
+| DELETE | `/postagem/{id}`                             | Deleta uma postagem       |
+| GET    | `/postagem/usuario/{usuarioId}`              | Postagens por usuário     |
+| GET    | `/postagem/categoria-desastre/{categoriaId}` | Postagens por categoria   |
+| GET    | `/postagem/localizacao/{localizacaoId}`      | Postagens por localização |
 
 ### Usuário
 
 | Método | Rota                  | Descrição               |
-| ------ | --------------------- | ----------------------- |
-| GET    | `/Usuario`            | Lista todos os usuários |
-| POST   | `/Usuario`            | Cria um novo usuário    |
-| GET    | `/Usuario/{id}`       | Obtém usuário por ID    |
-| PUT    | `/Usuario/{id}`       | Atualiza um usuário     |
-| DELETE | `/Usuario/{id}`       | Deleta um usuário       |
-| POST   | `/Usuario/autenticar` | Autentica um usuário    |
+| ------ |-----------------------| ----------------------- |
+| GET    | `/usuario`            | Lista todos os usuários |
+| POST   | `/usuario`            | Cria um novo usuário    |
+| GET    | `/usuario/{id}`       | Obtém usuário por ID    |
+| PUT    | `/usuario/{id}`       | Atualiza um usuário     |
+| DELETE | `/usuario/{id}`       | Deleta um usuário       |
+| POST   | `/usuario/autenticar` | Autentica um usuário    |
 
 
