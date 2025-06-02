@@ -366,8 +366,7 @@ dotnet run --project CoAlert --urls "http://localhost:5024"
 ```json
 {
   "usuarioId": COLOQUE_O_ID_DO_USUARIO,
-  "postagemId": COLOQUE_O_ID_DA_POSTAGEM,
-  "dtLike": "2025-06-02"
+  "postagemId": COLOQUE_O_ID_DA_POSTAGEM
 }
 ```
 
