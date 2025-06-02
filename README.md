@@ -61,6 +61,8 @@ Essa integração permite o acompanhamento via aplicativo, promovendo **eficiên
 
 ![Diagrama](./CoAlert/wwwroot/imagens/diagramacoalert.png)
 
+*Diagrama para MVP — ainda passível de várias melhorias.*
+
 ## Dockerfile
 
 Dockerfile de desenvolvimento sem migração (mais leve):
