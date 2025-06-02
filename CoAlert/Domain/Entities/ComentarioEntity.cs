@@ -33,7 +33,7 @@ namespace CoAlert.Domain.Entities
         public virtual UsuarioEntity Usuario { get; set; }
 
         [ForeignKey("PostagemEntity")]
-        [Column("CA_POSTAGEM_ID_POSTAGEM")]
+        [Column("ID_POSTAGEM")]
         public long PostagemId { get; set; }
         public virtual PostagemEntity Postagem { get; set; }
     }

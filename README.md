@@ -214,8 +214,14 @@ dotnet run --project CoAlert --urls "http://localhost:5024"
 ## Acesso à API
 
 - Aplicação Razor: [http://localhost:5024/](http://localhost:5024/)
-- API: [http://localhost:5024/api](http://localhost:5024/api/)
+
+![Co Alert Razor APP](./CoAlert/wwwroot/imagens/coalertrazorapp.png)
+
 - Swagger: [http://localhost:5024/swagger](http://localhost:5024/swagger/index.html)
+
+![Diagrama](./CoAlert/wwwroot/imagens/coalertswagger.png)
+
+- API: [http://localhost:5024/api](http://localhost:5024/api/)
 
 ## Exemplos de Teste da API
 

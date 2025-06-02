@@ -29,17 +29,17 @@ namespace CoAlert.Domain.Entities
         public int NrLikes { get; set; }
 
         [ForeignKey("UsuarioEntity")]
-        [Column("CA_USUARIO_ID_USUARIO")]
+        [Column("ID_USUARIO")]
         public long UsuarioId { get; set; }
         public virtual UsuarioEntity Usuario { get; set; }
 
         [ForeignKey("CategoriaDesastreEntity")]
-        [Column("CA_CATEGORIA_DESASTRE_ID_CATEGORIA_DESASTRE")]
+        [Column("ID_CATEGORIA_DESASTRE")]
         public long CategoriaDesastreId { get; set; }
         public virtual CategoriaDesastreEntity CategoriaDesastre { get; set; }
 
         [ForeignKey("LocalizacaoEntity")]
-        [Column("CA_LOCALIZACAO_ID_LOCALIZACAO")]
+        [Column("ID_LOCALIZACAO")]
         public long LocalizacaoId { get; set; }
         public virtual LocalizacaoEntity Localizacao { get; set; }
 

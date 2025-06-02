@@ -5,6 +5,8 @@ using CoAlert.Application.Dtos.Comentario;
 using CoAlert.Domain.Interfaces;
 using CoAlert.Domain.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CoAlert.Presentation.Controllers
 {
@@ -49,7 +51,8 @@ namespace CoAlert.Presentation.Controllers
             }
 
             // Populate users dropdown
-            ViewBag.Usuarios = new SelectList(_usuarioService.ObterTodosUsuarios(), "IdUsuario", "NmUsuario");
+            var usuarios = _usuarioService.ObterTodosUsuarios().ToList();
+            ViewBag.Usuarios = new SelectList(usuarios, "IdUsuario", "NmUsuario");
             
             // Get selected user from query string or use first user as default
             long usuarioId = 0;
@@ -59,7 +62,7 @@ namespace CoAlert.Presentation.Controllers
             }
             else
             {
-                var firstUser = _usuarioService.ObterTodosUsuarios().FirstOrDefault();
+                var firstUser = usuarios.FirstOrDefault();
                 if (firstUser != null)
                 {
                     usuarioId = firstUser.IdUsuario;
@@ -68,28 +71,47 @@ namespace CoAlert.Presentation.Controllers
 
             ViewBag.SelectedUserId = usuarioId;
             
-            // Carregar estado dos likes
+            // Carregar estado dos likes da postagem
             ViewBag.PostagemCurtida = _likeService.UsuarioJaCurtiu(usuarioId, id, null);
             
-            if (postagem.Comentarios != null)
+            // Ensure comments are loaded
+            var comentarios = _comentarioService.ObterComentariosPorPostagem(id);
+            postagem.Comentarios = comentarios?.ToList() ?? new List<ComentarioResponseDto>();
+
+            // Now populate likes for all comments
+            var comentariosCurtidos = new Dictionary<long, bool>();
+            foreach (var comentario in postagem.Comentarios)
             {
-                var comentariosCurtidos = new Dictionary<long, bool>();
-                foreach (var comentario in postagem.Comentarios)
+                if (comentario != null && comentario.IdComentario > 0)
                 {
                     comentariosCurtidos[comentario.IdComentario] = 
                         _likeService.UsuarioJaCurtiu(usuarioId, null, comentario.IdComentario);
                 }
-                ViewBag.ComentariosCurtidos = comentariosCurtidos;
             }
-
-            // Ensure comments are loaded
-            if (postagem.Comentarios == null)
-            {
-                var comentarios = _comentarioService.ObterComentariosPorPostagem(id);
-                postagem.Comentarios = comentarios.ToList();
-            }
+            ViewBag.ComentariosCurtidos = comentariosCurtidos;
 
             return View(postagem);
+        }
+
+        private bool ContainsInappropriateContent(string content)
+        {
+            if (string.IsNullOrWhiteSpace(content))
+                return false;
+
+            // Lista de palavras e frases inapropriadas
+            var inappropriateWords = new[]
+            {
+                "fuck", "foder", "porra", "caralho", "merda", 
+                "motherfucker", "bitch", "vai se funder",
+                "must perish", "die", "death", "kill",
+                // Adicione mais palavras conforme necessário
+            };
+
+            // Normalize the content for comparison
+            content = content.ToLower().Trim();
+
+            // Check for inappropriate words
+            return inappropriateWords.Any(word => content.Contains(word.ToLower()));
         }
 
         public IActionResult Create()
@@ -181,7 +203,7 @@ namespace CoAlert.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddComment(long postagemId, ComentarioRequestDto comentario)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !string.IsNullOrWhiteSpace(comentario.NmConteudo))
             {
                 comentario.PostagemId = postagemId;
                 var result = _comentarioService.SalvarComentario(comentario);

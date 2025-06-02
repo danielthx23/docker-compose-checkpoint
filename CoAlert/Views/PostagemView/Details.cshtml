@@ -27,13 +27,13 @@
                         <dd class="col-sm-9">@Model.NmConteudo</dd>
 
                         <dt class="col-sm-3">Usuário</dt>
-                        <dd class="col-sm-9">@Model.Usuario.NmUsuario</dd>
+                        <dd class="col-sm-9">@(Model.Usuario?.NmUsuario ?? "Usuário Desconhecido")</dd>
 
                         <dt class="col-sm-3">Categoria</dt>
-                        <dd class="col-sm-9">@Model.CategoriaDesastre.NmTitulo</dd>
+                        <dd class="col-sm-9">@(Model.CategoriaDesastre?.NmTitulo ?? "Sem Categoria")</dd>
 
                         <dt class="col-sm-3">Localização</dt>
-                        <dd class="col-sm-9">@Model.Localizacao.NmCidade, @Model.Localizacao.NmEstado - @Model.Localizacao.NmPais</dd>
+                        <dd class="col-sm-9">@(Model.Localizacao != null ? $"{Model.Localizacao.NmCidade}, {Model.Localizacao.NmEstado} - {Model.Localizacao.NmPais}" : "Localização não especificada")</dd>
 
                         <dt class="col-sm-3">Data de Envio</dt>
                         <dd class="col-sm-9">@Model.DtEnvio.ToString("dd/MM/yyyy HH:mm")</dd>
@@ -67,6 +67,13 @@
             <h5 class="card-title mb-0">Comentários</h5>
         </div>
         <div class="card-body">
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
             <!-- Formulário de Novo Comentário Principal -->
             <div class="mb-4">
                 <form asp-action="AddComment" asp-route-postagemId="@Model.IdPostagem" method="post">
@@ -84,8 +91,11 @@
             <!-- Lista de Comentários -->
             @if (Model.Comentarios != null && Model.Comentarios.Any())
             {
-                var comentariosPrincipais = Model.Comentarios.Where(c => !c.IdComentarioParente.HasValue).OrderByDescending(c => c.DtEnvio);
-                var comentariosRespostas = Model.Comentarios.Where(c => c.IdComentarioParente.HasValue)
+                var comentariosPrincipais = Model.Comentarios
+                    .Where(c => !c.IdComentarioParente.HasValue)
+                    .OrderByDescending(c => c.DtEnvio);
+                var comentariosRespostas = Model.Comentarios
+                    .Where(c => c.IdComentarioParente.HasValue)
                     .GroupBy(c => c.IdComentarioParente)
                     .ToDictionary(g => g.Key, g => g.OrderBy(c => c.DtEnvio));
 
@@ -96,11 +106,11 @@
                         <div class="border-bottom pb-3">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <strong>@comentario.Usuario.NmUsuario</strong>
+                                    <strong>@(comentario.Usuario?.NmUsuario)</strong>
                                     <small class="text-muted">- @comentario.DtEnvio.ToString("dd/MM/yyyy HH:mm")</small>
                                 </div>
                                 <div>
-                                    <button class="btn btn-link text-decoration-none like-button @(ViewBag.ComentariosCurtidos[comentario.IdComentario] ? "liked" : "")" 
+                                    <button class="btn btn-link text-decoration-none like-button @((ViewBag.ComentariosCurtidos != null && ViewBag.ComentariosCurtidos.ContainsKey(comentario.IdComentario) && ViewBag.ComentariosCurtidos[comentario.IdComentario]) ? "liked" : "")" 
                                             data-type="comment" 
                                             data-id="@comentario.IdComentario">
                                         <i class="bi bi-heart-fill"></i>
@@ -147,11 +157,11 @@
                                     <div class="comment-reply mb-3 pb-2 border-bottom">
                                         <div class="d-flex justify-content-between">
                                             <div>
-                                                <strong>@resposta.Usuario.NmUsuario</strong>
+                                                <strong>@(resposta.Usuario?.NmUsuario ?? "Usuário Desconhecido")</strong>
                                                 <small class="text-muted">- @resposta.DtEnvio.ToString("dd/MM/yyyy HH:mm")</small>
                                             </div>
                                             <div>
-                                                <button class="btn btn-link text-decoration-none like-button @(ViewBag.ComentariosCurtidos[resposta.IdComentario] ? "liked" : "")" 
+                                                <button class="btn btn-link text-decoration-none like-button @((ViewBag.ComentariosCurtidos != null && ViewBag.ComentariosCurtidos.ContainsKey(resposta.IdComentario) && ViewBag.ComentariosCurtidos[resposta.IdComentario]) ? "liked" : "")" 
                                                         data-type="comment" 
                                                         data-id="@resposta.IdComentario">
                                                     <i class="bi bi-heart-fill"></i>
@@ -195,7 +205,6 @@
             const commentUserId = document.getElementById('commentUserId');
             const replyUserIds = document.querySelectorAll('.reply-user-id');
             
-            // Set initial selected user
             const selectedUserId = '@ViewBag.SelectedUserId';
             if (userSelect) {
                 userSelect.value = selectedUserId;
