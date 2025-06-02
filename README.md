@@ -52,13 +52,14 @@ Utilize o comando abaixo, substituindo meuusuario e minhasenha com suas credenci
   -e ORACLE_PORT=1521 \
   -e ORACLE_SID=ORCL \
   -e RUN_MIGRATIONS=true \
+  -p 5024:5024 \
   danielakiyama/coalert:development-migration-v1.0.0
 ```
 
 Em uma linha só (recomendado):
 ```bash
   # Funciona no CMD e Bash (recomendado)
-  docker run -d -e ORACLE_USER=seusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SID=ORCL -e RUN_MIGRATIONS=true danielakiyama/coalert:development-migration-v1.0.0
+  docker run -d -e ORACLE_USER=seusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SID=ORCL -e RUN_MIGRATIONS=true -p 5024:5024 danielakiyama/coalert:development-migration-v1.0.0
 ```
 
 OU, se não quiser rodar as migrations:
@@ -71,13 +72,14 @@ OU, se não quiser rodar as migrations:
   -e ORACLE_HOST=oracle.fiap.com.br \
   -e ORACLE_PORT=1521 \
   -e ORACLE_SID=ORCL \
+  -p 5024:5024 \
   danielakiyama/coalert:development-v1.0.0
 ```
 
 Em uma linha só (recomendado):
 ```bash
   # Funciona no CMD e Bash (recomendado)
-  docker run -d -e ORACLE_USER=seusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SID=ORCL danielakiyama/coalert:development-v1.0.0
+  docker run -d -e ORACLE_USER=seusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SID=ORCL -p 5024:5024 danielakiyama/coalert:development-v1.0.0
 ```
 
 Legendas:
@@ -90,6 +92,7 @@ docker run -d \
   -e ORACLE_PORT=1521                # Porta do banco Oracle (geralmente 1521)
   -e ORACLE_SID=ORCL                 # SID da instância Oracle
   -e RUN_MIGRATIONS=true             # Controla se as migrações serão executadas na inicialização (true/false)
+  -p 5169:5169                      # Mapeia a porta 5169 do container para a mesma porta na máquina host
   danielakiyama/mottracker:<tags diferentes>  # Nome da imagem e tag Docker a ser executada, lembrando Development (leve) não roda migrations, Development-Migration (pesada) roda.
 ```
 
