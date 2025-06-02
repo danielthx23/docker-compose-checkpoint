@@ -23,10 +23,10 @@ Essa integração permite o acompanhamento via aplicativo, promovendo **eficiên
 ## Dockerfile
 
 Dockerfile de desenvolvimento sem migração (mais leve):
-[Dockerfile Production](./CoAlert/Dockerfile.dev)
+[Dockerfile Development](./CoAlert/Dockerfile.dev)
 
 Dockerfile de desenvolvimento com migração (mais pesada):
-[Dockerfile Development](./CoAlert/Dockerfile.dev-migration)
+[Dockerfile Development Migration](./CoAlert/Dockerfile.dev-migration)
 
 Imagem Docker Hub: [Imagem Docker Hub com as duas Tags](https://hub.docker.com/repository/docker/danielakiyama/coalert/general)
 
@@ -116,13 +116,13 @@ Clone o projeto utilizando git
 
 Ou crie um arquivo .env no diretório do projeto contendo: 
 
-´´´bash
+```bash
   ORACLE_USER=seusuario
   ORACLE_PASSWORD=suasenha
   ORACLE_HOST=seuhost
   ORACLE_PORT=suaporta
   ORACLE_SID=seusid
-´´´
+```
 
 2. Execute as migrations para criar as tabelas no banco Oracle:
 
