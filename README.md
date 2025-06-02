@@ -2,6 +2,36 @@
 
 ## Sumário
 
+- [Co-Alert](#co-alert)
+  - [Sumário](#sumário)
+  - [Descrição do Projeto](#descrição-do-projeto)
+  - [Autores](#autores)
+    - [Turma 2TDSR - Análise e Desenvolvimento de Sistemas](#turma-2tdsr---análise-e-desenvolvimento-de-sistemas)
+  - [Dockerfile](#dockerfile)
+  - [Instalação do Projeto via Docker](#instalação-do-projeto-via-docker)
+    - [Requisitos](#requisitos)
+    - [Configuração](#configuração)
+  - [Instalação do Projeto via Host](#instalação-do-projeto-via-host)
+    - [Requisitos](#requisitos-1)
+    - [Configuração](#configuração-1)
+    - [Rodar o Projeto Localmente](#rodar-o-projeto-localmente)
+      - [Com IDE (Rider ou Visual Studio)](#com-ide-rider-ou-visual-studio)
+      - [Sem IDE (usando linha de comando)](#sem-ide-usando-linha-de-comando)
+  - [Acesso à API](#acesso-à-api)
+  - [Exemplos de Teste da API](#exemplos-de-teste-da-api)
+    - [Categoria de Desastre](#categoria-de-desastre)
+    - [Localização](#localização)
+    - [Usuário](#usuário)
+    - [Postagem](#postagem)
+    - [Comentário](#comentário)
+    - [Like](#like)
+  - [Rotas da API](#rotas-da-api)
+    - [Categoria de desastre](#categoria-de-desastre-1)
+    - [Comentários](#comentários)
+    - [Likes](#likes)
+    - [Localização](#localização-1)
+    - [Postagem](#postagem-1)
+    - [Usuário](#usuário-1)
 
 ## Descrição do Projeto
 
