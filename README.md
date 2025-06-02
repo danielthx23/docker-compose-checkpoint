@@ -33,6 +33,8 @@
     - [Postagem](#postagem-1)
     - [Usuário](#usuário-1)
 
+---
+
 ## Descrição do Projeto
 
 O Co-Alert surge como uma rede colaborativa de comunicação, que funciona como uma plataforma tipo fórum, permitindo aos usuários compartilhar informações em tempo real sobre desastres naturais e eventos climáticos extremos. Através de publicações detalhadas, que incluem tipo de ocorrência, localização exata e imagens, a comunidade pode acessar informações confiáveis e atualizadas, melhorando a tomada de decisões e a preparação para esses eventos.
