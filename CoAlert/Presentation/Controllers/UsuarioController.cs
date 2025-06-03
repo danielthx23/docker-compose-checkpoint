@@ -118,14 +118,18 @@ namespace CoAlert.Presentation.Controllers
         [SwaggerResponse(200, "Usuário autenticado com sucesso", typeof(UsuarioResponseDto))]
         [SwaggerResponse(404, "Usuário não encontrado")]
         [SwaggerResponse(400, "Erro na autenticação")]
-        public IActionResult Autenticar([FromBody] AutenticacaoRequestDto request)
+        public IActionResult Autenticar([FromBody] UsuarioLoginRequestDto request)
         {
             try
             {
-                var result = _applicationService.AutenticarUsuario(request.Email, request.Senha);
+                var result = _applicationService.AutenticarUsuario(request.NmEmail, request.NrSenha);
 
                 if (result != null)
+                {
+                    // TODO: Aplicar segurança
+                    result.TokenProvisorio = request.NmEmail + "," + request.NrSenha;
                     return Ok(result);
+                }
 
                 return NotFound();
             }
@@ -139,10 +143,5 @@ namespace CoAlert.Presentation.Controllers
             }
         }
     }
-
-    public class AutenticacaoRequestDto
-    {
-        public string Email { get; set; } = string.Empty;
-        public string Senha { get; set; } = string.Empty;
-    }
+    
 } 

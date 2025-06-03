@@ -12,9 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp", policy =>
+    options.AddPolicy("AllowReactNativeApp", policy =>
     {                   
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins("http://localhost:8081")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -81,7 +81,7 @@ else
     app.UseExceptionHandler("/Home/Error");
 }
 
-app.UseCors("AllowReactApp");
+app.UseCors("AllowReactNativeApp");
 
 app.UseStaticFiles();
 
