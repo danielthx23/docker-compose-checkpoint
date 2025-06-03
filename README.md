@@ -343,8 +343,7 @@ dotnet run --project CoAlert --urls "http://localhost:5024"
 {
   "nmConteudo": "Excelente relato, obrigado por compartilhar!",
   "usuarioId": COLOQUE_O_ID_DO_USUARIO,
-  "postagemId": COLOQUE_O_ID_DA_POSTAGEM,
-  "idComentarioParente": 0
+  "postagemId": COLOQUE_O_ID_DA_POSTAGEM
 }
 ```
 
@@ -354,8 +353,7 @@ dotnet run --project CoAlert --urls "http://localhost:5024"
 {
   "nmConteudo": "Atualizando meu comentário: a situação foi resolvida pela Defesa Civil.",
   "usuarioId": COLOQUE_O_ID_DO_USUARIO,
-  "postagemId": COLOQUE_O_ID_DA_POSTAGEM,
-  "idComentarioParente": 0
+  "postagemId": COLOQUE_O_ID_DA_POSTAGEM
 }
 ```
 
@@ -368,8 +366,7 @@ dotnet run --project CoAlert --urls "http://localhost:5024"
 ```json
 {
   "usuarioId": COLOQUE_O_ID_DO_USUARIO,
-  "postagemId": COLOQUE_O_ID_DA_POSTAGEM,
-  "comentarioId": COLOQUE_O_ID_DO_COMENTARIO
+  "postagemId": COLOQUE_O_ID_DA_POSTAGEM
 }
 ```
 
