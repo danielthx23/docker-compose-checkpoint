@@ -13,6 +13,9 @@ RUN dotnet build "CoAlert.csproj" -c $BUILD_CONFIGURATION -o /app/build
 RUN dotnet publish "CoAlert.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS final
+ARG BUILD_CONFIGURATION=Release
+
+RUN dotnet tool install --global dotnet-ef --version 8.0.0
 ENV PATH="$PATH:/root/.dotnet/tools"
 
 WORKDIR /app
