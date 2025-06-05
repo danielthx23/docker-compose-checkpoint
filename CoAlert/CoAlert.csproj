@@ -49,6 +49,6 @@
         <Link>.dockerignore</Link>
       </Content>
       <Content Include=".config\dotnet-tools.json" />
-    </ItemGroup>
+    </ItemGroup>  
 
 </Project>

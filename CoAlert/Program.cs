@@ -6,7 +6,10 @@ using CoAlert.Infrastructure.Data.AppData;
 using CoAlert.Infrastructure.Data.Repositories;
 using DotNetEnv;
 
-Env.Load();
+if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ORACLE_HOST")))
+{
+    DotNetEnv.Env.Load();
+}
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,11 +31,30 @@ if (string.IsNullOrWhiteSpace(connectionString))
     var oraclePassword = Environment.GetEnvironmentVariable("ORACLE_PASSWORD");
     var oracleHost = Environment.GetEnvironmentVariable("ORACLE_HOST") ?? "localhost";
     var oraclePort = Environment.GetEnvironmentVariable("ORACLE_PORT") ?? "1521";
-    var oracleSid = Environment.GetEnvironmentVariable("ORACLE_SID") ?? "xe";
+    var oracleServiceName = Environment.GetEnvironmentVariable("ORACLE_SERVICE_NAME");
+    var oracleSid = Environment.GetEnvironmentVariable("ORACLE_SID");
 
     if (!string.IsNullOrEmpty(oracleUser) && !string.IsNullOrEmpty(oraclePassword))
     {
-        connectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={oracleHost})(PORT={oraclePort})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={oracleSid})));User Id={oracleUser};Password={oraclePassword};";
+        string connectDataPart;
+
+        if (!string.IsNullOrEmpty(oracleServiceName))
+        {
+            // Usa SERVICE_NAME se estiver configurado
+            connectDataPart = $"(SERVICE_NAME={oracleServiceName})";
+        }
+        else if (!string.IsNullOrEmpty(oracleSid))
+        {
+            // Usa SID se SERVICE_NAME não estiver definido mas SID estiver
+            connectDataPart = $"(SID={oracleSid})";
+        }
+        else
+        {
+            // Pode definir um padrão, se quiser (exemplo: XE)
+            connectDataPart = "(SID=XE)";
+        }
+
+        connectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={oracleHost})(PORT={oraclePort})))(CONNECT_DATA=(SERVER=DEDICATED){connectDataPart}));User Id={oracleUser};Password={oraclePassword};";
     }
     else
     {

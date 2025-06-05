@@ -58,7 +58,7 @@ namespace CoAlert.Infrastructure.Data.AppData
                 .HasOne<ComentarioEntity>()
                 .WithMany()
                 .HasForeignKey(c => c.IdComentarioParente)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // LIKE - muitos para um com USUARIO
             modelBuilder.Entity<LikeEntity>()

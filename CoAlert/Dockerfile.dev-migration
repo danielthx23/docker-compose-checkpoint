@@ -7,9 +7,13 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 
 COPY ["CoAlert.csproj", "./"]
 RUN dotnet restore "CoAlert.csproj"
+
 COPY . .
 
 RUN dotnet build "CoAlert.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "CoAlert.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS final
@@ -18,9 +22,12 @@ ARG BUILD_CONFIGURATION=Release
 RUN dotnet tool install --global dotnet-ef --version 8.0.0
 ENV PATH="$PATH:/root/.dotnet/tools"
 
+RUN adduser --disabled-password --gecos '' appuser
+
 WORKDIR /app
 
-COPY --from=build /app/publish ./
+COPY --from=publish /app/publish ./
+COPY --from=build /src ./src
 
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
@@ -29,5 +36,7 @@ ENV ASPNETCORE_URLS=http://+:5024
 ENV ASPNETCORE_ENVIRONMENT=Development
 
 EXPOSE 5024
+
+USER appuser
 
 ENTRYPOINT ["./entrypoint.sh"]
