@@ -62,8 +62,9 @@ Essa integração permite o acompanhamento via aplicativo, promovendo **eficiên
 
 ## Vídeo de Demonstração
 
-![Imagem video](https://youtu.be/4SEC_q7I8_M)
 [Link vídeo de demonstração](https://youtu.be/4SEC_q7I8_M)
+
+[![Demonstração do projeto](https://img.youtube.com/vi/4SEC_q7I8_M/0.jpg)](https://www.youtube.com/watch?v=4SEC_q7I8_M)
 
 ## Vídeo Pitch
 
