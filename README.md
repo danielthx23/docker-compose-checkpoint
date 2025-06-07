@@ -179,7 +179,7 @@ Ou crie um arquivo .env no diretório do projeto contendo:
   ORACLE_PASSWORD=suasenha
   ORACLE_HOST=seuhost
   ORACLE_PORT=suaporta
-  ORACLE_SID=seusid
+  ORACLE_SERVICE_NAME=seusn
 ```
 
 2. Execute as migrations para criar as tabelas no banco Oracle:
