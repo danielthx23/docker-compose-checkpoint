@@ -68,7 +68,9 @@ Essa integração permite o acompanhamento via aplicativo, promovendo **eficiên
 
 ## Vídeo Pitch
 
-[Link vídeo pitch]()
+[Link vídeo pitch](https://www.youtube.com/watch?v=jo6uayD35yI)
+
+[![Pitch do projeto](https://img.youtube.com/vi/jo6uayD35yI/0.jpg)](https://www.youtube.com/watch?v=jo6uayD35yI)
 
 ## Diagramas Database
 
