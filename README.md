@@ -9,6 +9,8 @@
   - [Descrição do Projeto](#descrição-do-projeto)
   - [Autores](#autores)
     - [Turma 2TDSR - Análise e Desenvolvimento de Sistemas](#turma-2tdsr---análise-e-desenvolvimento-de-sistemas)
+  - [Link vídeo de demonstração](#vídeo-de-demonstração)
+  - [Link vídeo pitch](#vídeo-pitch)
   - [Diagrama Database](#diagramas-database)
   - [Dockerfile](#dockerfile)
   - [Instalação do Projeto via Docker](#instalação-do-projeto-via-docker)
@@ -57,6 +59,14 @@ Essa integração permite o acompanhamento via aplicativo, promovendo **eficiên
 * Daniel Saburo Akiyama - RM 558263
 * Danilo Correia e Silva - RM 557540
 * João Pedro Rodrigues da Costa - RM 558199
+
+## Vídeo de Demonstração
+
+[Link vídeo de demonstração](https://youtu.be/4SEC_q7I8_M)
+
+## Vídeo Pitch
+
+[Link vídeo pitch]()
 
 ## Diagramas Database
 
