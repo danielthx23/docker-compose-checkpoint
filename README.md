@@ -289,7 +289,7 @@ dotnet run --project CoAlert --urls "http://localhost:5024"
   "nrNumero": 15,
   "nmCidade": "Ferraz de Vasconcelos",
   "nmEstado": "São Paulo",
-  "nrCep": "08505361",
+  "nrCep": "08505-361",
   "nmPais": "Brasil",
   "dsComplemento": "Casa"
 }
