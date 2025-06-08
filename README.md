@@ -280,6 +280,21 @@ dotnet run --project CoAlert --urls "http://localhost:5024"
 }
 ```
 
+**Exemplo utilizado no vídeo de DevOps:**
+
+```json
+{
+  "nmBairro": "Jardim Papai",
+  "nmLogradouro": "Rua Luiz Batista da Silva",
+  "nrNumero": 15,
+  "nmCidade": "Ferraz de Vasconcelos",
+  "nmEstado": "São Paulo",
+  "nrCep": "08505361",
+  "nmPais": "Brasil",
+  "dsComplemento": "Casa"
+}
+```
+
 **Exemplo PUT**
 
 ```json
@@ -309,6 +324,16 @@ dotnet run --project CoAlert --urls "http://localhost:5024"
 }
 ```
 
+**Exemplo utilizado no vídeo de DevOps:**
+
+```json
+{
+  "nmUsuario": "Carolina Correia e Silva",
+  "nrSenha": "carol123",
+  "nmEmail": "carol123@gmail.com"
+}
+```
+
 **Exemplo PUT**
 
 ```json
@@ -334,6 +359,18 @@ dotnet run --project CoAlert --urls "http://localhost:5024"
   "localizacaoId": COLOQUE_O_ID_DA_LOCALIZACAO
 }
 ```
+
+**Exemplo utilizado no vídeo de DevOps:**
+
+```json
+{
+  "nmTitulo": "Na tarde do dia 6 de junho de 2025, uma forte chuva atingiu Ferraz de Vasconcelos, na Região Metropolitana de São Paulo, provocando enchentes em diversos bairros, especialmente no Jardim Castelo e no Parque São Francisco.",
+  "nmConteudo": "Ruas ficaram completamente alagadas, impedindo a passagem de veículos e pedestres. Moradores relataram que a água invadiu casas, causando perdas materiais e riscos à saúde. A Defesa Civil foi acionada, mas houve demora no atendimento devido à alta demanda. A população cobra medidas   
+urgentes de drenagem e manutenção das galerias pluviais para evitar novos episódios como este.",
+  "usuarioId": COLOQUE_O_ID_DO_USUARIO,
+  "categoriaDesastreId": COLOQUE_O_ID_DA_CATEGORIA,
+  "localizacaoId": COLOQUE_O_ID_DA_LOCALIZACAO
+}
 
 **Exemplo PUT**
 
