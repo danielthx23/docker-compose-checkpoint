@@ -19,10 +19,13 @@ RUN dotnet publish "CoAlert.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:U
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS final
 ARG BUILD_CONFIGURATION=Release
 
-RUN dotnet tool install --global dotnet-ef --version 8.0.0
-ENV PATH="$PATH:/root/.dotnet/tools"
+RUN useradd -m appuser
 
-RUN adduser --disabled-password --gecos '' appuser
+USER appuser
+ENV PATH="/home/appuser/.dotnet/tools:$PATH"
+RUN dotnet tool install --global dotnet-ef --version 8.0.0
+
+USER root
 
 WORKDIR /app
 
