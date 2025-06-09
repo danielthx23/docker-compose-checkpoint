@@ -22,24 +22,23 @@ ARG BUILD_CONFIGURATION=Release
 RUN useradd -m appuser
 
 USER appuser
+
 ENV PATH="/home/appuser/.dotnet/tools:$PATH"
 RUN dotnet tool install --global dotnet-ef --version 8.0.0
-
-USER root
 
 WORKDIR /app
 
 COPY --from=publish /app/publish ./
 COPY --from=build /src ./src
-
 COPY entrypoint.sh .
-RUN chmod +x entrypoint.sh
+
+USER root
+RUN chmod +x entrypoint.sh && chown -R appuser:appuser /app/src /app/entrypoint.sh
+USER appuser
 
 ENV ASPNETCORE_URLS=http://+:5024
 ENV ASPNETCORE_ENVIRONMENT=Development
 
 EXPOSE 5024
-
-USER appuser
 
 ENTRYPOINT ["./entrypoint.sh"]
