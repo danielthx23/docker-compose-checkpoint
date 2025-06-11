@@ -371,6 +371,7 @@ urgentes de drenagem e manutenção das galerias pluviais para evitar novos epis
   "categoriaDesastreId": COLOQUE_O_ID_DA_CATEGORIA,
   "localizacaoId": COLOQUE_O_ID_DA_LOCALIZACAO
 }
+```
 
 **Exemplo PUT**
 
