@@ -1,24 +1,35 @@
-# Co-Alert
+# Co-Alert (Entrega checkpoint DevOps)
 
 ---
 
 ## Sumário
 
-- [Co-Alert](#co-alert)
+***Em negrito são os tópicos importantes para entrega do checkpoint de DevOps***
+
+- [Co-Alert](#co-alert-entrega-checkpoint-devops)
   - [Sumário](#sumário)
   - [Descrição do Projeto](#descrição-do-projeto)
   - [Autores](#autores)
     - [Turma 2TDSR - Análise e Desenvolvimento de Sistemas](#turma-2tdsr---análise-e-desenvolvimento-de-sistemas)
-  - [Link vídeo de demonstração](#vídeo-de-demonstração)
-  - [Link vídeo pitch](#vídeo-pitch)
-  - [Diagrama Database](#diagramas-database)
+  - [Vídeo de Demonstração](#vídeo-de-demonstração)
+  - [Vídeo Pitch](#vídeo-pitch)
+  - [Diagramas Database](#diagramas-database)
+  - [***Arquitetura Atual***](#arquitetura-atual)
+  - [***Arquitetura Futura***](#arquitetura-futura)
   - [Dockerfile](#dockerfile)
+  - [***Docker Compose***](#docker-compose)
+  - [***Instalação do Projeto via Docker Compose***](#instalação-do-projeto-via-docker-compose--troubleshooting)
+    - [Requisitos Docker Compose](#requisitos-docker-compose)
+    - [Configuração Docker Compose](#configuração-docker-compose)
+    - [Comandos Essenciais do Docker Compose](#comandos-essenciais-do-docker-compose)
+    - [Processo de Deploy Passo a Passo](#processo-de-deploy-passo-a-passo)
+    - [Troubleshooting Básico](#troubleshooting-básico)
   - [Instalação do Projeto via Docker](#instalação-do-projeto-via-docker)
-    - [Requisitos](#requisitos)
-    - [Configuração](#configuração)
+    - [Requisitos Docker](#requisitos-docker)
+    - [Configuração Docker](#configuração-docker)
   - [Instalação do Projeto via Host](#instalação-do-projeto-via-host)
-    - [Requisitos](#requisitos-1)
-    - [Configuração](#configuração-1)
+    - [Requisitos Host](#requisitos-host)
+    - [Configuração Host](#configuração-host)
     - [Rodar o Projeto Localmente](#rodar-o-projeto-localmente)
       - [Com IDE (Rider ou Visual Studio)](#com-ide-rider-ou-visual-studio)
       - [Sem IDE (usando linha de comando)](#sem-ide-usando-linha-de-comando)
@@ -50,7 +61,9 @@ Com o Co-Alert, buscamos impactar positivamente a vida dessas pessoas, reduzindo
 
 Este projeto responde a um desafio crescente: o aumento de até 460% nos desastres climáticos no Brasil desde os anos 1990, comprovando a necessidade de ferramentas eficientes para comunicação e prevenção
 
-Essa integração permite o acompanhamento via aplicativo, promovendo **eficiência, segurança e organização**. O sistema também gerencia cadastro/edição de dados, autenticação/autorizacão, gestão de permissões e dashboards com relatórios para tomada de decisão.
+Essa integração permite o acompanhamento via aplicativo, promovendo **eficiência, segurança e organização**. O sistema também gerencia cadastro/edição de dados, autenticação/autorização, gestão de permissões e dashboards com relatórios para tomada de decisão.
+
+---
 
 ## Autores
 
@@ -60,11 +73,15 @@ Essa integração permite o acompanhamento via aplicativo, promovendo **eficiên
 * Danilo Correia e Silva - RM 557540
 * João Pedro Rodrigues da Costa - RM 558199
 
+---
+
 ## Vídeo de Demonstração
 
 [Link vídeo de demonstração](https://youtu.be/4SEC_q7I8_M)
 
 [![Demonstração do projeto](https://img.youtube.com/vi/4SEC_q7I8_M/0.jpg)](https://www.youtube.com/watch?v=4SEC_q7I8_M)
+
+---
 
 ## Vídeo Pitch
 
@@ -72,11 +89,46 @@ Essa integração permite o acompanhamento via aplicativo, promovendo **eficiên
 
 [![Pitch do projeto](https://img.youtube.com/vi/jo6uayD35yI/0.jpg)](https://www.youtube.com/watch?v=jo6uayD35yI)
 
+---
+
 ## Diagramas Database
 
 ![Diagrama](./CoAlert/wwwroot/imagens/diagramacoalert.png)
 
 *Diagrama para MVP — ainda passível de várias melhorias.*
+
+---
+
+## Arquitetura Atual
+
+![Arquitetura Atual](./CoAlert/wwwroot/imagens/arquitetura-atual.png)
+
+A arquitetura atual do Co-Alert utiliza uma abordagem **tradicional monolítica**, onde:
+
+- A aplicação e o banco de dados estão rodando em **servidores separados**.
+- O **deploy é manual**, realizado via cópia de arquivos e configuração direta no servidor.
+- Cada ambiente (desenvolvimento, teste e produção) é configurado de forma independente, o que gera **inconsistências**.
+- Não há **orquestração** de serviços ou padronização de ambiente.
+- O banco de dados depende de **infraestrutura física**, com risco de perda de dados caso o servidor seja reiniciado ou corrompido.
+
+Essa arquitetura apresenta dificuldades de escalabilidade e manutenção, além de processos lentos de deploy.
+
+---
+
+## Arquitetura Futura
+
+![Arquitetura Futura](./CoAlert/wwwroot/imagens/arquitetura-futura.png)
+
+Após a modernização utilizando **Docker Compose**, a arquitetura do Co-Alert passa a ser baseada em **containers**, oferecendo:
+
+- **Container da aplicação** (Co-Alert) e **container do banco de dados** (Oracle XE).
+- **Rede interna Docker (`coalert_net`)** para comunicação segura entre os containers.
+- **Volumes** para persistência dos dados do banco (`oracle_data`).
+- **Docker Compose** orquestrando o deploy, garantindo que todos os serviços sejam iniciados e conectados corretamente.
+- Ambientes padronizados e reproduzíveis, permitindo **deploy contínuo** e confiável.
+- Maior **escalabilidade** e **isolamento** de serviços, reduzindo dependência da infraestrutura física.
+
+---
 
 ## Dockerfile
 
@@ -90,21 +142,157 @@ Imagem Docker Hub: [Imagem Docker Hub com as duas Tags](https://hub.docker.com/r
 
 **Observação**: Em produção, o ideal é usar a imagem aspnet apenas para executar a aplicação, deixando as migrações para serem feitas fora do container ou em um container separado com o SDK. Isso torna a imagem final mais leve e segura. Contudo, optamos por utilizar o SDK na imagem para facilitar o desenvolvimento do projeto.
 
-## Instalação do Projeto via Docker 
+---
 
-### Requisitos
+## Docker Compose
+
+O **Docker Compose** é responsável por **orquestrar todos os serviços**, facilitando o deploy e a gestão dos containers.  
+Ele define quais containers serão criados, como se comunicam, quais volumes serão usados e as variáveis de ambiente de cada serviço.
+
+O docker-compose.yml é um arquivo de configuração em YAML que define como os containers devem ser criados e executados.
+Você pode conferir o arquivo `docker-compose.yml` do projeto aqui:  
+[Docker Compose yml](./docker-compose.yml)
+
+- **Serviços definidos:**
+  - `oracle` → banco de dados Oracle XE
+  - `coalert` → aplicação Co-Alert
+- **Redes:**
+  - `coalert_net` conecta os containers de forma segura e isolada.
+- **Volumes:**
+  - `oracle_data` mapeado para persistir os dados do banco.
+- **Variáveis de ambiente:** configuram usuários, senhas e endpoints do banco.
+- **Healthchecks:** garantem que cada serviço esteja operacional antes de prosseguir com a inicialização.
+- **Política de restart:** `unless-stopped` para maior confiabilidade.
+- **Execução com usuário sem privilégios administrativos:** aumenta a segurança do container da aplicação.
+
+O Docker Compose torna a **arquitetura moderna, escalável e confiável**, substituindo processos manuais e padronizando todo o ambiente de execução.
+
+---
+
+## Instalação do Projeto via Docker Compose & Troubleshooting
+
+### Requisitos Docker Compose
+
+- Docker e Docker Compose instalado e com a engine ligada
+- Máquina com recursos suficientes para rodar os containers (CPU, RAM, disco).
+- Conexão com a internet para baixar as imagens oficiais.
+
+---
+
+### Configuração Docker Compose
+
+1. Clone o projeto:
+
+```bash
+git clone https://github.com/danielthx23/docker-compose-checkpoint.git
+cd CoAlert
+```
+
+2. Certifique-se de que o `docker-compose.yml` está na raiz do projeto e com as variáveis de ambiente corretas.
+
+---
+
+### Comandos Essenciais do Docker Compose
+
+* Subir todos os serviços e reconstruir as imagens (app + banco):
+
+```bash
+docker compose up -d --build
+```
+
+* Ver logs dos containers:
+
+```bash
+docker compose logs -f
+```
+
+* Parar os serviços e remover containers, redes e volumes:
+
+```bash
+docker compose down -v
+```
+
+* Listar containers em execução:
+
+```bash
+docker compose ps
+```
+
+* Reconstruir a imagem da aplicação (sem subir containers):
+
+```bash
+docker compose build coalert
+```
+
+---
+
+### Processo de Deploy Passo a Passo
+
+1. Configurar variáveis de ambiente no yml ou diretamente eu um .env.
+2. Executar `docker compose up -d --build` para buildar as imagens subir os containers.
+3. Aguardar até que os **healthchecks** indiquem que os serviços estão saudáveis.
+4. Verificar se a aplicação está acessível via browser:
+
+* API/Swagger: `http://localhost:5024/swagger`
+* Razor App: `http://localhost:5024/`
+5. Executar migrations automaticamente (caso `RUN_MIGRATIONS=true`).
+6. Testar CRUDs no banco via API para garantir que tudo está funcionando.
+
+---
+
+### Troubleshooting Básico
+
+* **Container do banco não inicia:**
+
+  * Verifique se a porta `1521` não está ocupada.
+  * Confira variáveis de ambiente (usuário, senha, SID).
+  * Confira logs: `docker-compose logs -f oracle`.
+
+* **Aplicação não consegue conectar ao banco:**
+
+  * Verifique se o nome do host no `docker-compose.yml` corresponde ao serviço do banco (`oracle`).
+  * Certifique-se que os containers estão na mesma rede (`coalert_net`).
+
+* **Erro de porta já em uso:**
+
+  * Altere a porta mapeada no `docker-compose.yml` ou libere a porta ocupada.
+
+* **Problemas de persistência:**
+
+  * Confira se o volume `oracle_data` está corretamente definido e com permissões de leitura/escrita.
+
+* **Logs do container app:**
+
+```bash
+docker-compose logs -f coalert
+```
+
+* Útil para verificar falhas na aplicação ou problemas de migrations.
+
+---
+
+## Instalação do Projeto via Docker
+
+### Requisitos Docker
 - Docker instalado e com a engine ligada
 
-### Configuração
+### Configuração Docker
 
-1. Rode um container utilizando variaveis de ambiente e a imagem no Docker Hub pelo build
+1. Clone o projeto:
+
+```bash
+git clone https://github.com/danielthx23/docker-compose-checkpoint.git
+cd CoAlert
+```
+
+2. Rode um container utilizando variaveis de ambiente e a imagem no Docker Hub pelo build
 
 Utilize o comando abaixo, substituindo meuusuario e minhasenha com suas credenciais do Oracle DB:
 
 ```bash
   # Esse comando só funciona em bash por conta do \
   docker run -d \
-  -e ORACLE_USER=seusuario \
+  -e ORACLE_USER=seuusuario \
   -e ORACLE_PASSWORD=suasenha \
   -e ORACLE_HOST=oracle.fiap.com.br \
   -e ORACLE_PORT=1521 \
@@ -117,7 +305,7 @@ Utilize o comando abaixo, substituindo meuusuario e minhasenha com suas credenci
 Em uma linha só (recomendado):
 ```bash
   # Funciona no CMD e Bash (recomendado)
-  docker run -d -e ORACLE_USER=seusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SERVICE_NAME=ORCL -e RUN_MIGRATIONS=true -p 5024:5024 danielakiyama/coalert:development-migration-v1.0.0
+  docker run -d -e ORACLE_USER=seuusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SERVICE_NAME=ORCL -e RUN_MIGRATIONS=true -p 5024:5024 danielakiyama/coalert:development-migration-v1.0.0
 ```
 
 OU, se não quiser rodar as migrations:
@@ -125,7 +313,7 @@ OU, se não quiser rodar as migrations:
 ```bash
   # Esse comando só funciona em bash por conta do \
   docker run -d \
-  -e ORACLE_USER=seusuario \
+  -e ORACLE_USER=seuusuario \
   -e ORACLE_PASSWORD=suasenha \
   -e ORACLE_HOST=oracle.fiap.com.br \
   -e ORACLE_PORT=1521 \
@@ -137,14 +325,14 @@ OU, se não quiser rodar as migrations:
 Em uma linha só (recomendado):
 ```bash
   # Funciona no CMD e Bash (recomendado)
-  docker run -d -e ORACLE_USER=seusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SERVICE_NAME=ORCL -p 5024:5024 danielakiyama/coalert:development-v1.0.0
+  docker run -d -e ORACLE_USER=seuusuario -e ORACLE_PASSWORD=suasenha -e ORACLE_HOST=oracle.fiap.com.br -e ORACLE_PORT=1521 -e ORACLE_SERVICE_NAME=ORCL -p 5024:5024 danielakiyama/coalert:development-v1.0.0
 ```
 
 Legendas:
 
 ```bash
 docker run -d \
-  -e ORACLE_USER=seusuario           # Usuário do banco Oracle
+  -e ORACLE_USER=seuusuario           # Usuário do banco Oracle
   -e ORACLE_PASSWORD=suasenha        # Senha do usuário Oracle
   -e ORACLE_HOST=oracle.fiap.com.br  # Host do banco Oracle
   -e ORACLE_PORT=1521                # Porta do banco Oracle (geralmente 1521)
@@ -156,15 +344,20 @@ docker run -d \
 
 ## Instalação do Projeto via Host
 
-### Requisitos
+### Requisitos Host
 - .NET SDK 8.0 instalado
 - Rider / Visual Studio instalado (opcional)
 
-### Configuração
+### Configuração Host
 
-Clone o projeto utilizando git
+1. Clone o projeto:
 
-1. No arquivo `appsettings.Development.json`, configure e adicione a string de conexão do Oracle DB com seu usuário e senha, por exemplo:
+```bash
+git clone https://github.com/danielthx23/docker-compose-checkpoint.git
+cd CoAlert
+```
+
+2. No arquivo `appsettings.Development.json`, configure e adicione a string de conexão do Oracle DB com seu usuário e senha, por exemplo:
 
 ```json
 "ConnectionStrings": {
@@ -172,17 +365,17 @@ Clone o projeto utilizando git
 }
 ```
 
-Ou crie um arquivo .env no diretório do projeto contendo: 
+Ou crie um arquivo .env no diretório do projeto contendo:
 
 ```bash
-  ORACLE_USER=seusuario
+  ORACLE_USER=seuusuario
   ORACLE_PASSWORD=suasenha
   ORACLE_HOST=seuhost
   ORACLE_PORT=suaporta
   ORACLE_SERVICE_NAME=seusn
 ```
 
-2. Execute as migrations para criar as tabelas no banco Oracle:
+3. Execute as migrations para criar as tabelas no banco Oracle:
 
    (entre no diretório do projeto primeiro)
 
@@ -200,18 +393,18 @@ Caso não tenha a ferramenta dotnet-ef instalada, instale com:
 
 Após configurar a string de conexão e aplicar as migrations, você pode rodar a API de duas maneiras:
 
-#### 1. Com IDE (Rider ou Visual Studio)
+#### Com IDE (Rider ou Visual Studio)
 
 1. Abra a solução no Rider ou Visual Studio.
 2. Selecione o projeto da API como *Startup Project*.
 3. Clique em **Run** com o perfil `http`.
 
-#### 2. Sem IDE (usando linha de comando)
+#### Sem IDE (usando linha de comando)
 
 1. **Restaurar e compilar:**
 
 - Para rodar o backend, entre no diretório `CoAlert_DotNet` antes de executar o comando.
-  
+
 - Caso deseje rodar o backend de dentro do diretório do projeto .net, altere o caminho e remova a flag `--project CoAlert` no comando correspondente.
 
 ```bash
@@ -219,7 +412,7 @@ dotnet restore CoAlert/CoAlert.csproj
 dotnet build
 ```
 
-4. **Rodar o projeto:**
+2. **Rodar o projeto:**
 
 ```bash
 dotnet run --project CoAlert --urls "http://localhost:5024"
@@ -494,5 +687,3 @@ urgentes de drenagem e manutenção das galerias pluviais para evitar novos epis
 | PUT    | `/usuario/{id}`       | Atualiza um usuário     |
 | DELETE | `/usuario/{id}`       | Deleta um usuário       |
 | POST   | `/usuario/autenticar` | Autentica um usuário    |
-
-
