@@ -1,7 +1,5 @@
 # Co-Alert (Entrega checkpoint DevOps)
 
----
-
 ## Sumário
 
 ***Em negrito são os tópicos importantes para entrega do checkpoint de DevOps***
